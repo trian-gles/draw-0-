@@ -64,10 +64,10 @@ while True:
                 continue
 
             user = clients[notified_socket]
-            print(f"received message from {user['data'].decode('utf-8')}: {message['data'].decode('utf-8')}")
+            print(f"received message from {user['data'].decode('utf-8')}: {pickle.loads(message['data'])}")
             for client_socket in clients:
                 if client_socket != notified_socket:
-                    send_pickle(message['data'].decode('utf-8'), user['data'].decode('utf-8'), client_socket)
+                    send_pickle(pickle.loads(message['data']), user['data'].decode('utf-8'), client_socket)
 
     for notified_socket in exception_sockets:
         sockets_list.remove(notified_socket)

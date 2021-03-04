@@ -18,13 +18,18 @@ def send_message(message):
     message_header = f"{len(enc_message):<{HEADER_LENGTH}}".encode('utf-8')
     client_socket.send(message_header + enc_message)
 
+def send_pickle(msg_dict):
+    dict_pick = pickle.dumps(msg_dict)
+    pick_mess = bytes(f"{len(dict_pick):<{HEADER_LENGTH}}", "utf-8") + dict_pick
+    client_socket.send(pick_mess)
+
 send_message(my_username)
 
 while True:
     message = input(f"{my_username} : ")
 
     if message:
-        send_message(message)
+        send_pickle(message)
 
     try:
         while True:
