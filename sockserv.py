@@ -1,5 +1,6 @@
 import socket
 import select
+import pickle
 
 HEADER_LENGTH = 10
 IP = "127.0.0.1"
@@ -14,6 +15,12 @@ server_socket.listen()
 sockets_list = [server_socket]
 
 clients = {}
+
+def send_pickle(message, user, send_sock):
+    content_dict = {'message': message, 'user': user}
+    dict_pick = pickle.dumps(content_dict)
+    pick_mess = bytes(f"{len(dict_pick):<{HEADER_LENGTH}}", "utf-8") + dict_pick
+    send_sock.send(pick_mess)
 
 def receive_message(client_socket):
     try:
@@ -60,7 +67,7 @@ while True:
             print(f"received message from {user['data'].decode('utf-8')}: {message['data'].decode('utf-8')}")
             for client_socket in clients:
                 if client_socket != notified_socket:
-                    client_socket.send(user['header'] + user['data'] + message['header'] + message['data'])
+                    send_pickle(message['data'].decode('utf-8'), user['data'].decode('utf-8'), client_socket)
 
     for notified_socket in exception_sockets:
         sockets_list.remove(notified_socket)
