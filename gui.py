@@ -1,12 +1,39 @@
+import pygame
 import PySimpleGUI as sg
+from socks import Client
 
-layout = [[sg.Text("Hello there!")], [sg.Button("OK")]]
+WIDTH = 800
+HEIGHT = 640
+DARK_BLUE = (39, 44, 73)
+WHITE = (255, 255, 255)
+LIGHT_GREY = (191, 191, 191)
 
-window = sg.Window("Demo", layout)
+layout = [[sg.Text("Enter your username")],
+[sg.InputText()],
+[sg.Submit()]]
+window = sg.Window("Draw", layout)
 
-while True:
-    event, values = window.read()
-    if event in ["OK", sg.WIN_CLOSED]:
-        break
-
+event, values = window.read()
+username = values[0]
 window.close()
+print("Username : " + username)
+
+pygame.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("draw(0)")
+font = pygame.font.SysFont(None, 24)
+
+def main():
+    run = True
+    clock = pygame.time.Clock()
+    while run:
+        chat_message = ""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+        screen.fill(DARK_BLUE)
+        pygame.display.update()
+        clock.tick(30)
+
+if __name__ == "__main__":
+    main()
