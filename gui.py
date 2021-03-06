@@ -25,12 +25,18 @@ font = pygame.font.SysFont(None, 24)
 
 def main():
     run = True
+    client = Client(username)
     clock = pygame.time.Clock()
     while run:
         chat_message = ""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+
+        incoming_message = client.listen()
+        if incoming_message:
+            print(incoming_message)
+
         screen.fill(DARK_BLUE)
         pygame.display.update()
         clock.tick(30)

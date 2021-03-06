@@ -38,7 +38,7 @@ class Client():
                 message_dict = pickle.loads(self.client_socket.recv(pick_length))
 
 
-                print(message_dict)
+                return message_dict
 
         except IOError as e:
             if e.errno != errno.EAGAIN and e.errno != errno.EWOULDBLOCK:
@@ -57,4 +57,6 @@ if __name__ == "__main__":
         message = input(f"{username} : ")
         if message:
             client.send_pickle(message)
-        client.listen()
+        received_dict = client.listen()
+        if received_dict:
+            print(received_dict)

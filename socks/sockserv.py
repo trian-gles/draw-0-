@@ -60,6 +60,10 @@ class Server:
 
                 if message is False:
                     print(f"Closed connection from {self.clients[notified_socket]['data'].decode('utf-8')}")
+
+                    if self.clients[notified_socket]['data'].decode('utf-8') == "debug":
+                        quit()
+
                     self.sockets_list.remove(notified_socket)
                     del self.clients[notified_socket]
                     continue
