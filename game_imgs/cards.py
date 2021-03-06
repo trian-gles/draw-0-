@@ -1,9 +1,10 @@
 import pygame
 
 class CardData:
-    CARD_WIDTH = 100
-    CARD_HEIGHT = 150
-    CARD_MARGIN = CARD_WIDTH / 4
+    CARD_WIDTH = 180
+    CARD_HEIGHT = 300
+    CARD_MARGIN = int(CARD_WIDTH / 16)
+    HAND_MARGIN = 80
 
 
 class Card(CardData):
@@ -28,7 +29,7 @@ class Hand(CardData):
     def _update(self):
         i = 0
         for card in self.cards:
-            card.rect.left = (self.CARD_WIDTH + self.CARD_MARGIN) * i
+            card.rect.left = self.HAND_MARGIN + (self.CARD_WIDTH + self.CARD_MARGIN) * i
             i += 1
 
     def draw(self, surf):
