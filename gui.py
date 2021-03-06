@@ -1,7 +1,7 @@
 import pygame
 import PySimpleGUI as sg
 from socks import Client
-from game_imgs import Arrow, Text, Timer
+from game_imgs import Arrow, Text, Timer, Hand
 
 WIDTH = 800
 HEIGHT = 640
@@ -37,10 +37,11 @@ def main():
     arrows = (arrow_r, arrow_l)
     timer = Timer(CLOCK_COOR)
     sprites = pygame.sprite.RenderPlain((hello_wrld,))
+    hand = Hand(200)
+    hand.add(4)
+    hand.add(8)
 
-    all_img = arrows + (timer,) + (sprites,)
-
-
+    all_img = arrows + (timer,) + (sprites,) + (hand,)
 
     while run:
         chat_message = ""
