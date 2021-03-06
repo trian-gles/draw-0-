@@ -1,10 +1,13 @@
 import pygame
 import PySimpleGUI as sg
+import sys
 from socks import Client
 from game_imgs import Arrow, Text, Timer, Hand
 
-WIDTH = 800
-HEIGHT = 640
+
+
+WIDTH = 1280
+HEIGHT = 720
 
 
 ARROW_R_COOR = (int(WIDTH * 7 / 16), int(HEIGHT * 13 / 16))
@@ -40,6 +43,10 @@ def main():
     hand = Hand(200)
     hand.add(4)
     hand.add(8)
+    hand.add(9)
+    hand.add(10)
+    hand.add(11)
+    hand.add(6)
 
     all_img = arrows + (timer,) + (sprites,) + (hand,)
 
