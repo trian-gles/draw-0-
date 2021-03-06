@@ -5,16 +5,18 @@ class Arrow:
     DEF_COLOR = (255, 255, 255)
     HOVER_COLOR = (0, 255, 0)
 
-    def __init__(self, loc, flipped):
+    def __init__(self, loc, flipped, callback):
         self.loc = loc
         self.rect = pygame.Rect(0, 0, self.SIZE, self.SIZE)
         self.rect.center = loc
         self.orient = 1 if flipped == True else -1
         self.color = self.DEF_COLOR
+        self.callback = callback
 
     def check_mouse(self, mouse_coor):
         if self.rect.collidepoint(mouse_coor):
             self.color = self.HOVER_COLOR
+            return True
         else:
             self.color = self.DEF_COLOR
 

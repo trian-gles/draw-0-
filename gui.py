@@ -1,9 +1,7 @@
 import pygame
 import PySimpleGUI as sg
 from socks import Client
-from text import Text
-from timer import Timer
-from arrow import Arrow
+from game_imgs import Arrow, Text, Timer
 
 WIDTH = 800
 HEIGHT = 640
@@ -18,15 +16,11 @@ DARK_BLUE = (39, 44, 73)
 WHITE = (255, 255, 255)
 LIGHT_GREY = (191, 191, 191)
 
-layout = [[sg.Text("Enter your username")],
-[sg.InputText()],
-[sg.Submit()]]
-window = sg.Window("Draw", layout)
+def right():
+    print("Right press")
 
-event, values = window.read()
-username = values[0]
-window.close()
-print("Username : " + username)
+def left():
+    print("Left press")
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -38,8 +32,8 @@ def main():
     clock = pygame.time.Clock()
     hello_wrld = Text("Hello World", (30, 30), 24, WHITE)
 
-    arrow_r = Arrow(ARROW_R_COOR, False)
-    arrow_l = Arrow(ARROW_L_COOR, True)
+    arrow_r = Arrow(ARROW_R_COOR, False, left)
+    arrow_l = Arrow(ARROW_L_COOR, True, right)
     arrows = (arrow_r, arrow_l)
     timer = Timer(CLOCK_COOR)
     sprites = pygame.sprite.RenderPlain((hello_wrld,))
@@ -53,6 +47,17 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RIGHT:
+                    right()
+                if event.key == pygame.K_LEFT:
+                    left()
+
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                for arrow in arrows:
+                    if arrow.check_mouse(mouse_pos):
+                        arrow.callback()
 
         #incoming_message = client.listen()
         #if incoming_message:
