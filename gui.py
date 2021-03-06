@@ -3,9 +3,14 @@ import PySimpleGUI as sg
 from socks import Client
 from text import Text
 from timer import Timer
+from arrow import Arrow
 
 WIDTH = 800
 HEIGHT = 640
+
+
+ARROW_R_COOR = (int(WIDTH * 7 / 16), int(HEIGHT * 13 / 16))
+ARROW_L_COOR = (int(WIDTH * 9 / 16), int(HEIGHT * 13 / 16))
 
 CLOCK_COOR = (int(WIDTH * 15 / 16), int(HEIGHT * 15 / 16))
 
@@ -32,8 +37,14 @@ def main():
     #client = Client(username)
     clock = pygame.time.Clock()
     hello_wrld = Text("Hello World", (30, 30), 24, WHITE)
+
+    arrow_r = Arrow(ARROW_R_COOR, False)
+    arrow_l = Arrow(ARROW_L_COOR, True)
+    arrows = (arrow_r, arrow_l)
     timer = Timer(CLOCK_COOR)
     sprites = pygame.sprite.RenderPlain((hello_wrld,))
+
+    all_img = arrows + (timer,) + (sprites,)
 
 
 
@@ -52,8 +63,14 @@ def main():
         if timer.update():
             print("RESET")
 
-        sprites.draw(screen)
-        timer.draw(screen)
+        mouse_pos = pygame.mouse.get_pos()
+
+        for arrow in arrows:
+            arrow.check_mouse(mouse_pos)
+
+        for img in all_img:
+            img.draw(screen)
+
         pygame.display.update()
         clock.tick(30)
 
