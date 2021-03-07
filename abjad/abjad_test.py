@@ -1,6 +1,6 @@
 import abjad
 
-preamble = r"""#(set-global-staff-size 45)
+preamble = r"""#(set-global-staff-size 35)
 
 \paper {
     #(set-paper-size "a4" 'landscape)

@@ -1,10 +1,12 @@
 import pygame
 import PySimpleGUI as sg
 import sys
+import os
 from socks import Client
 from game_imgs import Arrow, Text, Timer, Hand
 
-
+def load_resource(filename):
+    return os.path.join('resources', filename)
 
 WIDTH = 1280
 HEIGHT = 720
@@ -18,6 +20,16 @@ CLOCK_COOR = (int(WIDTH * 15 / 16), int(HEIGHT * 15 / 16))
 DARK_BLUE = (39, 44, 73)
 WHITE = (255, 255, 255)
 LIGHT_GREY = (191, 191, 191)
+SCALING = 1280/2339
+
+bkg_staff = pygame.image.load(load_resource('bkg_staff.jpg'))
+bkg_staff = pygame.transform.rotozoom(bkg_staff, 0, SCALING)
+
+
+
+pygame.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("draw(0)")
 
 def right():
     print("Right press")
@@ -25,9 +37,9 @@ def right():
 def left():
     print("Left press")
 
-pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("draw(0)")
+def draw_bkg(surf):
+    surf.blit(bkg_staff, (0, int(HEIGHT / 3)))
+
 
 def main():
     run = True
@@ -81,6 +93,7 @@ def main():
         for arrow in arrows:
             arrow.check_mouse(mouse_pos)
 
+        draw_bkg(screen)
         for img in all_img:
             img.draw(screen)
 

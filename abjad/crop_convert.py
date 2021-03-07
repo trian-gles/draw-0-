@@ -18,5 +18,5 @@ jpeg_im = Image.open(r"C:\Users\bkier\projects\draw(0)\abjad\output_dir\staff.jp
 width, height = jpeg_im.size
 
 print(width, height)
-im_crop = jpeg_im.crop((120, 0, 700, height))
+im_crop = jpeg_im.crop((190, 0, 600, height))
 im_crop.save(r'../resources/bkg_staff.jpg', quality=95)
