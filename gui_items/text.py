@@ -1,22 +1,19 @@
 import pygame
 
-class Text(pygame.sprite.Sprite):
-    def __init__(self, msg, loc, size, color):
+class Text:
+    def __init__(self, msg, loc, size=20, color=(255, 255, 255)):
         pygame.sprite.Sprite.__init__(self)
         self.color = color
-        self.size = size
         self.msg = msg
         self.new_msg = msg
+        self.loc = loc
         self.font = pygame.font.SysFont(None, size)
         self.image = self.font.render(msg, 0, color)
-        self.rect = self.image.get_rect().move(*loc)
 
-    def change_msg(msg):
+    def change_msg(self, msg):
         if self.new_msg != self.msg:
             self.new_msg = msg
-            self.image = self.font.render(msg, 0, color)
+            self.image = self.font.render(msg, 0, self.color)
 
-
-
-if __name__ == "__main__":
-    pass
+    def draw(self, surf):
+        surf.blit(self.image, self.loc)

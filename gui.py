@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 import sys
 import os
 from socks import Client
-from game_imgs import Arrow, Text, Timer, Hand
+from gui_items import Arrow, Text, Timer, Hand
 
 def load_resource(filename):
     return os.path.join('resources', filename)
@@ -46,12 +46,10 @@ def main():
     #client = Client(username)
     clock = pygame.time.Clock()
     hello_wrld = Text("Hello World", (30, 30), 24, WHITE)
-
     arrow_r = Arrow(ARROW_R_COOR, False, left)
     arrow_l = Arrow(ARROW_L_COOR, True, right)
     arrows = (arrow_r, arrow_l)
     timer = Timer(CLOCK_COOR)
-    sprites = pygame.sprite.RenderPlain((hello_wrld,))
     hand = Hand(200)
     hand.add(4)
     hand.add(8)
@@ -60,7 +58,7 @@ def main():
     hand.add(11)
     hand.add(6)
 
-    all_img = arrows + (timer,) + (sprites,) + (hand,)
+    all_img = arrows + (timer,) + (hand,) + (hello_wrld,)
 
     while run:
         chat_message = ""
