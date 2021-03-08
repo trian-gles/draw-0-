@@ -44,6 +44,11 @@ class TestHand(unittest.TestCase):
         for _ in range(4):
             self.hand.cycle_right()
         self.assertEqual(self.hand.selected, 1)
+        for _ in range(2):
+            self.hand.cycle_left()
+        self.assertEqual(self.hand.selected, 2)
+        self.hand.remove(0)
+        self.assertEqual(self.hand.selected, 1)
 
 
 
