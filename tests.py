@@ -41,6 +41,7 @@ class TestHand(unittest.TestCase):
         self.assertEqual(len(self.hand.cards), 2)
 
     def test_cycle(self):
+        self.hand.cycle_right()
         for i in range(3):
             self.hand.add(i)
         for _ in range(4):
