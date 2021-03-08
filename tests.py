@@ -1,6 +1,6 @@
 import unittest
 import pygame
-from game_imgs import Arrow, Text, Timer, Hand
+from gui_items import Arrow, Text, MessageBox, Timer, Hand
 
 class TestArrow(unittest.TestCase):
     def setUp(self):
@@ -38,8 +38,12 @@ class TestHand(unittest.TestCase):
             self.hand.add(i)
         self.assertEqual(len(self.hand.cards), 3)
 
-
-
+    def test_cycle(self):
+        for i in range(3):
+            self.hand.add(i)
+        for _ in range(4):
+            self.hand.cycle_right()
+        self.assertEqual(self.hand.selected, 1)
 
 
 
