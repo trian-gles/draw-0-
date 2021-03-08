@@ -27,9 +27,10 @@ class Hand(CardData):
         self.cards.append(self.all_cards[id])
         self._update()
 
-    def remove(self, id):
-        self.cards.remove(self.all_cards[id])
+    def remove(self):
+        drawn = self.cards.pop(self.selected)
         self._update()
+        return drawn.id
 
     def cycle_right(self):
         if self.selected != None:
@@ -40,10 +41,13 @@ class Hand(CardData):
             self.selected = (self.selected - 1) % len(self.cards)
 
     def _update(self):
+        #space the Rects of the cards
         i = 0
         for card in self.cards:
             card.rect.left = self.HAND_MARGIN + (self.CARD_WIDTH + self.CARD_MARGIN) * i
             i += 1
+
+        #select the first drawn card
         if len(self.cards) == 1:
             self.selected = 0
 

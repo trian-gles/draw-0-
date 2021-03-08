@@ -37,6 +37,8 @@ class TestHand(unittest.TestCase):
         for i in range(3):
             self.hand.add(i)
         self.assertEqual(len(self.hand.cards), 3)
+        self.hand.remove()
+        self.assertEqual(len(self.hand.cards), 2)
 
     def test_cycle(self):
         for i in range(3):
@@ -47,8 +49,9 @@ class TestHand(unittest.TestCase):
         for _ in range(2):
             self.hand.cycle_left()
         self.assertEqual(self.hand.selected, 2)
-        self.hand.remove(0)
+        drawn = self.hand.remove()
         self.assertEqual(self.hand.selected, 1)
+        self.assertEqual(drawn, 2)
 
 
 
