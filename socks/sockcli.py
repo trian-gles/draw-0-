@@ -31,9 +31,17 @@ class Client():
         self.send_pickle(msg_dict)
 
     def send_len(self):
-        msg_dict = {"method": "send_len", "len" = len(self.hand)}
+        msg_dict = {"method": "send_len", "len": len(self.hand)}
         self.send_pickle(msg_dict)
         print("Responding with hand length")
+
+    def send_start(self):
+        msg_dict = {"method": "start"}
+        self.send_pickle(msg_dict)
+
+    def send_quit(self):
+        msg_dict = {"method": "quit"}
+        self.send_pickle(msg_dict)
 
     def listen(self):
         try:
@@ -65,9 +73,11 @@ if __name__ == "__main__":
     username = input("Username : ")
     client = Client(username)
     while True:
-        card_id = input(f"{username} : ")
-        if card_id:
-            client.send_card(card_id)
+        msg = input(f"{username} : ")
+        if msg == "quit":
+            client.send_quit()
+        elif msg:
+            client.send_card(msg)
         received_card = client.listen()
         if received_card:
             print(received_card)

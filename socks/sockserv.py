@@ -1,6 +1,7 @@
 import socket
 import select
 import pickle
+import time
 
 
 class Server:
@@ -18,6 +19,7 @@ class Server:
         self.clients = {}
 
         self.cards = list(range(42))
+        self.mode = "sleep"
 
     def send_pickle(self, content_dict, send_sock):
         dict_pick = pickle.dumps(content_dict)
@@ -73,12 +75,19 @@ class Server:
                 data = pickle.loads(message['data'])
                 send_to_index = self.sockets_list.index(notified_socket) + 1
                 print(f"received message from {user['data'].decode('utf-8')}: {data}")
+
+
                 if data["method"] == "pass":
                     if send_to_index < len(self.sockets_list):
                         print(f"Passing card {data['id']}")
                         self.send_pickle(data, self.sockets_list[send_to_index])
                     else:
                         print(f"Discarding {data['id']}")
+                elif data["method"] == "quit":
+                    quit()
+                elif data["method"] == "start":
+                    self.mode = "deal"
+                    print("Dealing cards")
 
 
 #                for client_socket in self.clients:

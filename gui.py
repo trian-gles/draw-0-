@@ -5,6 +5,8 @@ import os
 from socks import Client
 from gui_items import Arrow, Text, Timer, Hand, MessageBox
 
+#Need to add: quit button, start button
+
 def load_resource(filename):
     return os.path.join('resources', filename)
 
