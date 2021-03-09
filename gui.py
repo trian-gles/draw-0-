@@ -65,8 +65,6 @@ def main():
     hand.add(8)
     hand.add(9)
     hand.add(10)
-    hand.add(11)
-    hand.add(6)
 
 
     arrow_r = Arrow(ARROW_R_COOR, True, hand.cycle_right)

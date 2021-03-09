@@ -1,7 +1,7 @@
 import pygame
 
 class CardData:
-    CARD_WIDTH = 180
+    CARD_WIDTH = 260
     CARD_HEIGHT = 300
     CARD_MARGIN = int(CARD_WIDTH / 16)
     HAND_MARGIN = 80
