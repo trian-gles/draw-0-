@@ -17,8 +17,9 @@ class Server:
         self.sockets_list = [self.server_socket]
         self.clients = {}
 
-    def send_pickle(self, message, user, send_sock):
-        content_dict = {'message': message, 'user': user}
+        self.cards = list(range(42))
+
+    def send_pickle(self, content_dict, send_sock):
         dict_pick = pickle.dumps(content_dict)
         pick_mess = bytes(f"{len(dict_pick):<{Server.HEADER_LENGTH}}", "utf-8") + dict_pick
         send_sock.send(pick_mess)
@@ -69,10 +70,20 @@ class Server:
                     continue
 
                 user = self.clients[notified_socket]
-                print(f"received message from {user['data'].decode('utf-8')}: {pickle.loads(message['data'])}")
-                for client_socket in self.clients:
-                    if client_socket != notified_socket:
-                        self.send_pickle(pickle.loads(message['data']), user['data'].decode('utf-8'), client_socket)
+                data = pickle.loads(message['data'])
+                send_to_index = self.sockets_list.index(notified_socket) + 1
+                print(f"received message from {user['data'].decode('utf-8')}: {data}")
+                if data["method"] == "pass":
+                    if send_to_index < len(self.sockets_list):
+                        print(f"Passing card {data['id']}")
+                        self.send_pickle(data, self.sockets_list[send_to_index])
+                    else:
+                        print(f"Discarding {data['id']}")
+
+
+#                for client_socket in self.clients:
+#                    if client_socket != notified_socket:
+#                        self.send_pickle(pickle.loads(message['data']), user['data'].decode('utf-8'), client_socket)
 
         for notified_socket in exception_sockets:
             self.sockets_list.remove(notified_socket)
