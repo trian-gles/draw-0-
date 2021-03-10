@@ -22,6 +22,7 @@ class Server:
 
         self.cards = list(range(42))
         shuffle(self.cards)
+        #The mode will go from "sleep" to "deal" to "pass" to "finish"
         self.mode = "sleep"
 
 
@@ -45,15 +46,7 @@ class Server:
             return False
 
 
-    def deal_card_to(self, user):
-        card_id = self.cards.pop()
-        print(f"Sending card to {self.clients[user]['data'].decode('utf-8')}")
-        self.clients[user]["cards"] += 1
-        msg_dict = {"method": "deal", "id": card_id}
-        self.send_pickle(msg_dict, user)
-
     def deal_cards(self):
-        print("Checking if anyone has less than four cards")
         user_keys = list(self.clients.keys())
         all_card_four = list(map(lambda user: self.clients[user]['cards'] > 3, user_keys))
         if not all(all_card_four):
@@ -64,6 +57,30 @@ class Server:
                     self.deal_card_to(pot_user)
                     chosen_user = True
             threading.Timer(1, self.deal_cards).start()
+        else:
+            #Finish the deal phase
+            print("Moving to main phase")
+            self.pass_cards()
+
+
+    def deal_card_to(self, user):
+        #in the deal phase, sends a card to the selected user
+        card_id = self.cards.pop()
+        print(f"Sending card to {self.clients[user]['data'].decode('utf-8')}")
+        self.clients[user]["cards"] += 1
+        msg_dict = {"method": "deal", "id": card_id}
+        self.send_pickle(msg_dict, user)
+
+
+    def pass_cards(self):
+        first_user = self.sockets_list[1]
+        if len(self.cards) > 0:
+            card_id = self.cards.pop()
+        else:
+            card_id = "null_card"
+        msg_dict = {"method": "pass", "id": card_id}
+        self.send_pickle(msg_dict, first_user)
+        threading.Timer(1, self.pass_cards).start()
 
 
     def listen(self):
