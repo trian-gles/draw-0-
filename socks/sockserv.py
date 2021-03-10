@@ -4,7 +4,7 @@ import pickle
 import time
 import threading
 import os
-from random import choice
+from random import choice, shuffle
 
 class Server:
     HEADER_LENGTH = 10
@@ -21,12 +21,15 @@ class Server:
         self.clients = {}
 
         self.cards = list(range(42))
+        shuffle(self.cards)
         self.mode = "sleep"
+
 
     def send_pickle(self, content_dict, send_sock):
         dict_pick = pickle.dumps(content_dict)
         pick_mess = bytes(f"{len(dict_pick):<{Server.HEADER_LENGTH}}", "utf-8") + dict_pick
         send_sock.send(pick_mess)
+
 
     def receive_message(self, client_socket):
         try:
@@ -42,6 +45,13 @@ class Server:
             return False
 
 
+    def deal_card_to(self, user):
+        card_id = self.cards.pop()
+        print(f"Sending card to {self.clients[user]['data'].decode('utf-8')}")
+        self.clients[user]["cards"] += 1
+        msg_dict = {"method": "deal", "id": card_id}
+        self.send_pickle(msg_dict, user)
+
     def deal_cards(self):
         print("Checking if anyone has less than four cards")
         user_keys = list(self.clients.keys())
@@ -51,13 +61,9 @@ class Server:
             while not chosen_user:
                 pot_user = choice(user_keys)
                 if self.clients[pot_user]["cards"] < 4:
-                    print(f"Sending card to {self.clients[pot_user]['data'].decode('utf-8')}")
-                    self.clients[pot_user]["cards"] += 1
+                    self.deal_card_to(pot_user)
                     chosen_user = True
             threading.Timer(1, self.deal_cards).start()
-
-    def send_card(self, user):
-        user.cards += 1
 
 
     def listen(self):
@@ -92,20 +98,20 @@ class Server:
                     continue
 
                 user = self.clients[notified_socket]
-                data = pickle.loads(message['data'])
+                msg_dict = pickle.loads(message['data'])
                 send_to_index = self.sockets_list.index(notified_socket) + 1
-                print(f"received message from {user['data'].decode('utf-8')}: {data}")
+                print(f"received message from {user['data'].decode('utf-8')}: {msg_dict}")
 
 
-                if data["method"] == "pass":
+                if msg_dict["method"] == "pass":
                     if send_to_index < len(self.sockets_list):
-                        print(f"Passing card {data['id']}")
-                        self.send_pickle(data, self.sockets_list[send_to_index])
+                        print(f"Passing card {msg_dict['id']}")
+                        self.send_pickle(msg_dict, self.sockets_list[send_to_index])
                     else:
-                        print(f"Discarding {data['id']}")
-                elif data["method"] == "quit":
+                        print(f"Discarding {msg_dict['id']}")
+                elif msg_dict["method"] == "quit":
                     os._exit(0)
-                elif data["method"] == "start":
+                elif msg_dict["method"] == "start":
                     self.mode = "deal"
                     print("Dealing cards")
                     self.deal_cards()

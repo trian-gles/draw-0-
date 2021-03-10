@@ -55,7 +55,9 @@ class Client():
                 pick_length = int(pick_header.decode("utf-8").strip())
                 message_dict = pickle.loads(self.client_socket.recv(pick_length))
                 if message_dict["method"] == "pass":
-                    return message_dict
+                    return f"Received card to pass {message_dict['id']}"
+                elif message_dict["method"] == "deal":
+                    return f"Received card via deal {message_dict['id']}"
                 elif message_dict["method"] == "get_len":
                     self.send_len()
 
@@ -80,6 +82,6 @@ if __name__ == "__main__":
             client.send_start()
         elif msg:
             client.send_card(msg)
-        received_card = client.listen()
-        if received_card:
-            print(received_card)
+        received = client.listen()
+        if received:
+            print(received)
