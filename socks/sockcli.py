@@ -76,6 +76,8 @@ if __name__ == "__main__":
         msg = input(f"{username} : ")
         if msg == "quit":
             client.send_quit()
+        if msg == "start":
+            client.send_start()
         elif msg:
             client.send_card(msg)
         received_card = client.listen()

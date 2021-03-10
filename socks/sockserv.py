@@ -2,7 +2,8 @@ import socket
 import select
 import pickle
 import time
-
+import threading
+import os
 
 class Server:
     HEADER_LENGTH = 10
@@ -38,6 +39,11 @@ class Server:
             "data": client_socket.recv(message_length)}
         except:
             return False
+
+
+    def deal_cards(self):
+        print("timer action called")
+        threading.Timer(1, self.deal_cards).start()
 
 
     def listen(self):
@@ -84,10 +90,11 @@ class Server:
                     else:
                         print(f"Discarding {data['id']}")
                 elif data["method"] == "quit":
-                    quit()
+                    os._exit(0)
                 elif data["method"] == "start":
                     self.mode = "deal"
                     print("Dealing cards")
+                    self.deal_cards()
 
 
 #                for client_socket in self.clients:
