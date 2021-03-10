@@ -4,6 +4,7 @@ import pickle
 import time
 import threading
 import os
+from random import choice
 
 class Server:
     HEADER_LENGTH = 10
@@ -42,8 +43,21 @@ class Server:
 
 
     def deal_cards(self):
-        print("timer action called")
-        threading.Timer(1, self.deal_cards).start()
+        print("Checking if anyone has less than four cards")
+        user_keys = list(self.clients.keys())
+        all_card_four = list(map(lambda user: self.clients[user]['cards'] > 3, user_keys))
+        if not all(all_card_four):
+            chosen_user = False
+            while not chosen_user:
+                pot_user = choice(user_keys)
+                if self.clients[pot_user]["cards"] < 4:
+                    print(f"Sending card to {self.clients[pot_user]['data'].decode('utf-8')}")
+                    self.clients[pot_user]["cards"] += 1
+                    chosen_user = True
+            threading.Timer(1, self.deal_cards).start()
+
+    def send_card(self, user):
+        user.cards += 1
 
 
     def listen(self):
@@ -58,7 +72,7 @@ class Server:
                     continue
 
                 self.sockets_list.append(client_socket)
-
+                user["cards"] = 0
                 self.clients[client_socket] = user
 
                 print(f"accepted new connection from \
