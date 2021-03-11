@@ -34,8 +34,8 @@ SCALING = 1280/2339
 bkg_staff = pygame.image.load(load_resource('bkg_staff.jpg'))
 bkg_staff = pygame.transform.rotozoom(bkg_staff, 0, SCALING)
 
-#username = retrieve_username()
-#client = Client(username)
+username = retrieve_username()
+client = Client(username)
 
 
 
@@ -57,11 +57,11 @@ def draw_bkg(surf):
 
 
 def start_call():
-    print("Start button pressed!")
+    client.send_start()
 
 
 def quit_call():
-    print("Quit button pressed!")
+    client.send_quit()
 
 
 def main():
@@ -108,9 +108,9 @@ def main():
                     if btn.check_mouse(mouse_pos):
                         btn.callback()
 
-        #client_msg = client.listen()
-        #if client_msg:
-        #    print(client_msg)
+        client_msg = client.listen()
+        if client_msg:
+            print(client_msg)
 
 
         screen.fill(DARK_BLUE)
