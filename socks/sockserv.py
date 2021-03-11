@@ -129,9 +129,10 @@ class Server:
                 elif msg_dict["method"] == "quit":
                     os._exit(0)
                 elif msg_dict["method"] == "start":
-                    self.mode = "deal"
-                    print("Dealing cards")
-                    self.deal_cards()
+                    if self.mode == "sleep":
+                        self.mode = "deal"
+                        print("Dealing cards")
+                        self.deal_cards()
 
 
 #                for client_socket in self.clients:

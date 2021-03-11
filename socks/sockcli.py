@@ -15,6 +15,7 @@ class Client():
         self.client_socket.setblocking(False)
         self.send_message(username)
         self.hand = []
+        self.selected_card = 0
 
     def send_message(self, message):
         enc_message = message.encode('utf-8')
@@ -26,11 +27,21 @@ class Client():
         pick_mess = bytes(f"{len(dict_pick):<{Client.HEADER_LENGTH}}", "utf-8") + dict_pick
         self.client_socket.send(pick_mess)
 
-    def send_card(self, id):
-        msg_dict = {"method": "pass", "id": id}
+    def pass_card(self):
+        #removes the highlighted card and sends it
+        card_id = self.hand.pop(self.selected_card)
+        msg_dict = {"method": "pass", "id": card_id}
         self.send_pickle(msg_dict)
 
+
+    def pass_null(self):
+        #passes an empty card informing the next user to pass
+        msg_dict = {"method": "pass", "id": "null_card"}
+        self.send_pickle(msg_dict)
+
+
     def send_len(self):
+        #informs the server of the size of the user's hand
         msg_dict = {"method": "send_len", "len": len(self.hand)}
         self.send_pickle(msg_dict)
         print("Responding with hand length")
@@ -55,8 +66,14 @@ class Client():
                 pick_length = int(pick_header.decode("utf-8").strip())
                 message_dict = pickle.loads(self.client_socket.recv(pick_length))
                 if message_dict["method"] == "pass":
+                    if message_dict["id"] != "null_card":
+                        self.hand.append(message_dict['id'])
+                    if len(self.hand) > 0:
+                        self.pass_card()
+
                     return f"Received card to pass {message_dict['id']}"
                 elif message_dict["method"] == "deal":
+                    self.hand.append(message_dict['id'])
                     return f"Received card via deal {message_dict['id']}"
                 elif message_dict["method"] == "get_len":
                     self.send_len()
@@ -74,14 +91,8 @@ class Client():
 if __name__ == "__main__":
     username = input("Username : ")
     client = Client(username)
+    client.send_start()
     while True:
-        msg = input(f"{username} : ")
-        if msg == "quit":
-            client.send_quit()
-        if msg == "start":
-            client.send_start()
-        elif msg:
-            client.send_card(msg)
         received = client.listen()
         if received:
             print(received)
