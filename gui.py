@@ -1,9 +1,9 @@
 import pygame
-import PySimpleGUI as sg
 import sys
 import os
 from socks import Client
-from gui_items import Arrow, Text, Timer, Hand, MessageBox
+from gui_items import Arrow, Text, Timer, Hand, MessageBox, MessageButton
+from setup_prompt import retrieve_username
 
 #Need to add: quit button, start button
 
@@ -33,32 +33,40 @@ SCALING = 1280/2339
 bkg_staff = pygame.image.load(load_resource('bkg_staff.jpg'))
 bkg_staff = pygame.transform.rotozoom(bkg_staff, 0, SCALING)
 
+#username = retrieve_username()
+#client = Client(username)
+
 
 
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("draw(0)")
 
+
 def right():
     print("Right press")
 
+
 def left():
     print("Left press")
+
 
 def draw_bkg(surf):
     surf.blit(bkg_staff, (0, int(HEIGHT / 3)))
 
 
+def hello_call():
+    print("Hello button pressed!")
+
+
 def main():
     run = True
-    #client = Client(username)
+
     clock = pygame.time.Clock()
 
 
     card_info = MessageBox("The card info will go here", CARD_NOTIF_COOR, size=26, bkg_color=GREEN, text_color=BLACK)
     extern_card_info = MessageBox("External card info here", EXTERN_CARD_COOR, size=26, bkg_color=RED, text_color=BLACK)
-
-
 
 
     timer = Timer(CLOCK_COOR)
@@ -68,12 +76,13 @@ def main():
     hand.add(9)
     hand.add(10)
 
+    hello_button = MessageButton("Hello World", (0, 0), hello_call)
 
     arrow_r = Arrow(ARROW_R_COOR, True, hand.cycle_right)
     arrow_l = Arrow(ARROW_L_COOR, False, hand.cycle_left)
     arrows = (arrow_r, arrow_l)
 
-    all_img = arrows + (timer,) + (hand,) + (card_info,) + (extern_card_info,)
+    all_img = arrows + (timer,) + (hand,) + (card_info,) + (extern_card_info,) + (hello_button,)
 
     while run:
         chat_message = ""
@@ -91,10 +100,13 @@ def main():
                 for arrow in arrows:
                     if arrow.check_mouse(mouse_pos):
                         arrow.callback()
+                if hello_button.check_mouse(mouse_pos):
+                    hello_button.callback()
 
-        #incoming_message = client.listen()
-        #if incoming_message:
-        #    print(incoming_message)
+        #client_msg = client.listen()
+        #if client_msg:
+        #    print(client_msg)
+
 
         screen.fill(DARK_BLUE)
 

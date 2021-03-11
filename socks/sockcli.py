@@ -33,12 +33,10 @@ class Client():
         msg_dict = {"method": "pass", "id": card_id}
         self.send_pickle(msg_dict)
 
-
     def pass_null(self):
         #passes an empty card informing the next user to pass
         msg_dict = {"method": "pass", "id": "null_card"}
         self.send_pickle(msg_dict)
-
 
     def send_len(self):
         #informs the server of the size of the user's hand

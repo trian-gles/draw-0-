@@ -22,7 +22,8 @@ class Text:
 
 
 class MessageBox(Text):
-    def __init__(self, msg, loc, size=20, bkg_color=(0, 0, 0), text_color=(255, 255, 255)):
+    def __init__(self, msg, loc, size=20,
+ bkg_color=(0, 0, 0), text_color=(255, 255, 255)):
         super().__init__(msg, loc, size, text_color)
         self.bkg_color = bkg_color
         self._build_rect()
@@ -40,3 +41,15 @@ class MessageBox(Text):
         pygame.draw.rect(surf, self.bkg_color, self.rect)
         #draw the overlaid text
         super().draw(surf)
+
+        
+
+class MessageButton(MessageBox):
+    def __init__(self, msg, loc, callback, size=20,
+     bkg_color=(0, 0, 0), text_color=(255, 255, 255)):
+        super().__init__(msg, loc, size, bkg_color, text_color)
+        self.callback = callback
+
+    def check_mouse(self, mouse_coor):
+        if self.rect.collidepoint(mouse_coor):
+            return True
