@@ -13,7 +13,8 @@ def load_resource(filename):
 WIDTH = 1280
 HEIGHT = 720
 
-
+START_COOR = (int(WIDTH * 1 / 32), int(HEIGHT * 1 / 32))
+QUIT_COOR = (START_COOR[0], START_COOR[1] + 60)
 ARROW_R_COOR = (int(WIDTH * 9 / 16), int(HEIGHT * 13 / 16))
 ARROW_L_COOR = (int(WIDTH * 7 / 16), int(HEIGHT * 13 / 16))
 CLOCK_COOR = (int(WIDTH * 15 / 16), int(HEIGHT * 15 / 16))
@@ -55,8 +56,12 @@ def draw_bkg(surf):
     surf.blit(bkg_staff, (0, int(HEIGHT / 3)))
 
 
-def hello_call():
-    print("Hello button pressed!")
+def start_call():
+    print("Start button pressed!")
+
+
+def quit_call():
+    print("Quit button pressed!")
 
 
 def main():
@@ -76,13 +81,15 @@ def main():
     hand.add(9)
     hand.add(10)
 
-    hello_button = MessageButton("Hello World", (0, 0), hello_call)
+    start_btn = MessageButton("Start", START_COOR, start_call, bkg_color=GREEN)
+    quit_btn = MessageButton("Quit", QUIT_COOR, quit_call, bkg_color=RED)
 
     arrow_r = Arrow(ARROW_R_COOR, True, hand.cycle_right)
     arrow_l = Arrow(ARROW_L_COOR, False, hand.cycle_left)
     arrows = (arrow_r, arrow_l)
+    buttons = arrows + (start_btn, quit_btn)
 
-    all_img = arrows + (timer,) + (hand,) + (card_info,) + (extern_card_info,) + (hello_button,)
+    all_img = buttons + (timer,) + (hand,) + (card_info,) + (extern_card_info,)
 
     while run:
         chat_message = ""
@@ -97,11 +104,9 @@ def main():
                     left()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                for arrow in arrows:
-                    if arrow.check_mouse(mouse_pos):
-                        arrow.callback()
-                if hello_button.check_mouse(mouse_pos):
-                    hello_button.callback()
+                for btn in buttons:
+                    if btn.check_mouse(mouse_pos):
+                        btn.callback()
 
         #client_msg = client.listen()
         #if client_msg:
