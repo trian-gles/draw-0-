@@ -5,7 +5,7 @@ from socks import Client
 from gui_items import Arrow, Text, Timer, Hand, MessageBox, MessageButton
 from setup_prompt import retrieve_username
 
-#Need to add: quit button, start button
+#Need to add: FIX THE TIMER!!!! make it rely on time.time, for now.
 
 def load_resource(filename):
     return os.path.join('resources', filename)
@@ -20,6 +20,7 @@ ARROW_L_COOR = (int(WIDTH * 7 / 16), int(HEIGHT * 13 / 16))
 CLOCK_COOR = (int(WIDTH * 15 / 16), int(HEIGHT * 15 / 16))
 CARD_NOTIF_COOR = (int(WIDTH / 16), int(HEIGHT * 3 / 4))
 EXTERN_CARD_COOR = (CARD_NOTIF_COOR[0], CARD_NOTIF_COOR[1] + 60)
+DEBUG_COOR = (int(WIDTH * 1/2), int(HEIGHT * 1 / 16))
 
 BLACK = (55, 55, 55)
 DARK_BLUE = (39, 44, 73)
@@ -73,6 +74,7 @@ def main():
     card_info = MessageBox("The card info will go here", CARD_NOTIF_COOR, size=26, bkg_color=GREEN, text_color=BLACK)
     extern_card_info = MessageBox("External card info here", EXTERN_CARD_COOR, size=26, bkg_color=RED, text_color=BLACK)
 
+    debug_dialogue = MessageBox("", DEBUG_COOR, size=12)
 
     timer = Timer(CLOCK_COOR)
     hand = Hand(200)
@@ -89,7 +91,7 @@ def main():
     arrows = (arrow_r, arrow_l)
     buttons = arrows + (start_btn, quit_btn)
 
-    all_img = buttons + (timer,) + (hand,) + (card_info,) + (extern_card_info,)
+    all_img = buttons + (timer,) + (hand,) + (card_info,) + (extern_card_info,) + (debug_dialogue,)
 
     while run:
         chat_message = ""
@@ -110,6 +112,7 @@ def main():
 
         client_msg = client.listen()
         if client_msg:
+            debug_dialogue.change_msg(client_msg)
             print(client_msg)
 
 

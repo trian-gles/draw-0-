@@ -14,7 +14,7 @@ class Text:
 
     def change_msg(self, new_msg):
         self.msg = new_msg
-        self.image = self.font.render(msg, 0, self.color)
+        self.image = self.font.render(self.msg, 0, self.color)
 
     def draw(self, surf):
         surf.blit(self.image, self.loc)
@@ -42,7 +42,7 @@ class MessageBox(Text):
         #draw the overlaid text
         super().draw(surf)
 
-        
+
 
 class MessageButton(MessageBox):
     def __init__(self, msg, loc, callback, size=20,
