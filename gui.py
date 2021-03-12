@@ -36,7 +36,7 @@ bkg_staff = pygame.image.load(load_resource('bkg_staff.jpg'))
 bkg_staff = pygame.transform.rotozoom(bkg_staff, 0, SCALING)
 
 username = retrieve_username()
-client = Client(username)
+#client = Client(username)
 
 
 
@@ -101,19 +101,19 @@ def main():
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    right()
+                    hand.cycle_right()
                 if event.key == pygame.K_LEFT:
-                    left()
+                    hand.cycle_left()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 for btn in buttons:
                     if btn.check_mouse(mouse_pos):
                         btn.callback()
 
-        client_msg = client.listen()
-        if client_msg:
-            debug_dialogue.change_msg(client_msg)
-            print(client_msg)
+        #client_msg = client.listen()
+        #if client_msg:
+        #    debug_dialogue.change_msg(client_msg)
+        #    print(client_msg)
 
 
         screen.fill(DARK_BLUE)
