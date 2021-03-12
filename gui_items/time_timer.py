@@ -1,18 +1,20 @@
 import pygame
 from math import cos, sin, radians
+import time
 
-class Timer:
+class TimeTimer:
     RADIUS = 20
-    LENGTH = 240
     SEC_LENGTH = 8
 
     def __init__(self, loc):
-        self.count = self.LENGTH
         self.loc = loc
+        self.start_time = time.time()
+        self.lap = 0
 
     def update(self):
-        self.count = (self.count - 1) % self.LENGTH
-        if self.count == 0:
+        self.lap = time.time() - self.start_time
+        if self.lap > 8:
+            self.start_time = time.time()
             return True
 
     def draw(self, surf):
@@ -25,7 +27,12 @@ class Timer:
         pygame.draw.line(surf, (0, 0, 0), self.loc, line_top)
 
         # Draw the moving hand
-        angle = radians((self.count / self.LENGTH) * 360 - 180)
-        x_arm = int(sin(angle) * self.RADIUS) + self.loc[0]
+        angle = radians((self.lap / self.SEC_LENGTH) * 360 - 180)
+        x_arm = int(sin(angle * -1) * self.RADIUS) + self.loc[0]
         y_arm = int(cos(angle) * self.RADIUS) + self.loc[1]
         pygame.draw.line(surf, (255, 0, 0), self.loc, (x_arm, y_arm))
+
+
+if __name__ == "__main__":
+    timer = Timer(0)
+    print(timer.start_time)

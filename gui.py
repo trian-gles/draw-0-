@@ -3,10 +3,11 @@ import pygame
 import sys
 import os
 from socks import Client
-from gui_items import Arrow, Text, Timer, Hand, MessageBox, MessageButton
+from gui_items import Arrow, Text, TimeTimer, Hand, MessageBox, MessageButton
 from setup_prompt import retrieve_username
 
 #Need to add: FIX THE TIMER!!!! make it rely on time.time, for now.
+#NEED TO FIX HAND NAMESPACE ISSUES!
 
 
 parser = argparse.ArgumentParser(description='Process some integers.')
@@ -92,7 +93,7 @@ def main():
 
     debug_dialogue = MessageBox("", DEBUG_COOR, size=12)
 
-    timer = Timer(CLOCK_COOR)
+    timer = TimeTimer(CLOCK_COOR)
     hand = Hand(200)
     hand.add(4)
     hand.add(8)
