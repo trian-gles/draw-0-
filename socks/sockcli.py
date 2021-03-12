@@ -44,6 +44,12 @@ class Client():
         self.send_pickle(msg_dict)
         print("Responding with hand length")
 
+    def cycle_right(self):
+        self.selected_card = (self.selected_card + 1) % len(self.hand)
+
+    def cycle_left(self):
+        self.selected_card = (self.selected_card - 1) % len(self.hand)
+
     def send_start(self):
         msg_dict = {"method": "start"}
         self.send_pickle(msg_dict)

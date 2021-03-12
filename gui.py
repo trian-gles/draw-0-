@@ -47,11 +47,12 @@ pygame.display.set_caption("draw(0)")
 
 def right():
     print("Right press")
+    hand.cycle_right()
 
 
 def left():
     print("Left press")
-
+    hand.cycle_left()
 
 def draw_bkg(surf):
     surf.blit(bkg_staff, (0, int(HEIGHT / 3)))
@@ -86,8 +87,8 @@ def main():
     start_btn = MessageButton("Start", START_COOR, start_call, bkg_color=GREEN)
     quit_btn = MessageButton("Quit", QUIT_COOR, quit_call, bkg_color=RED)
 
-    arrow_r = Arrow(ARROW_R_COOR, True, hand.cycle_right)
-    arrow_l = Arrow(ARROW_L_COOR, False, hand.cycle_left)
+    arrow_r = Arrow(ARROW_R_COOR, True, right)
+    arrow_l = Arrow(ARROW_L_COOR, False, left)
     arrows = (arrow_r, arrow_l)
     buttons = arrows + (start_btn, quit_btn)
 
@@ -101,9 +102,9 @@ def main():
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    hand.cycle_right()
+                    right()
                 if event.key == pygame.K_LEFT:
-                    hand.cycle_left()
+                    left()
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 for btn in buttons:
