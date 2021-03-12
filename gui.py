@@ -1,3 +1,4 @@
+import argparse
 import pygame
 import sys
 import os
@@ -6,6 +7,15 @@ from gui_items import Arrow, Text, Timer, Hand, MessageBox, MessageButton
 from setup_prompt import retrieve_username
 
 #Need to add: FIX THE TIMER!!!! make it rely on time.time, for now.
+
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('--debug', action='store_true',
+                    help='run the gui without a client')
+
+args = parser.parse_args()
+if args.debug:
+    print("DEBUG MODE")
 
 def load_resource(filename):
     return os.path.join('resources', filename)
@@ -35,8 +45,9 @@ SCALING = 1280/2339
 bkg_staff = pygame.image.load(load_resource('bkg_staff.jpg'))
 bkg_staff = pygame.transform.rotozoom(bkg_staff, 0, SCALING)
 
-username = retrieve_username()
-#client = Client(username)
+if not args.debug:
+    username = retrieve_username()
+    client = Client(username)
 
 
 
@@ -48,11 +59,15 @@ pygame.display.set_caption("draw(0)")
 def right():
     print("Right press")
     hand.cycle_right()
+    if not args.debug:
+        client.cycle_right()
 
 
 def left():
     print("Left press")
     hand.cycle_left()
+    if not args.debug:
+        client.cycle_left()
 
 def draw_bkg(surf):
     surf.blit(bkg_staff, (0, int(HEIGHT / 3)))
@@ -111,10 +126,11 @@ def main():
                     if btn.check_mouse(mouse_pos):
                         btn.callback()
 
-        #client_msg = client.listen()
-        #if client_msg:
-        #    debug_dialogue.change_msg(client_msg)
-        #    print(client_msg)
+        if not args.debug:
+            client_msg = client.listen()
+            if client_msg:
+                debug_dialogue.change_msg(client_msg)
+                print(client_msg)
 
 
         screen.fill(DARK_BLUE)
