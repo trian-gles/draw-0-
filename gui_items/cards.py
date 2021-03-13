@@ -1,15 +1,18 @@
 import pygame
+import os
 
 class CardData:
     CARD_WIDTH = 260
     CARD_HEIGHT = 300
     CARD_MARGIN = int(CARD_WIDTH / 16)
     HAND_MARGIN = 100
+    SCALING = 1280/2339
 
 
 class Card(CardData):
     def __init__(self, id, y):
         self.id = id
+        self.img = pygame.image.load("resources/test_card.jpg")
         self.rect = pygame.Rect(0, y, self.CARD_WIDTH, self.CARD_HEIGHT)
         self.select = False
 
@@ -21,6 +24,8 @@ class Hand(CardData):
         self.y = y
         self.all_cards = []
         self.selected = None
+        bkg_staff = pygame.image.load('resources/bkg_staff.jpg')
+        self.bkg_staff = pygame.transform.rotozoom(bkg_staff, 0, self.SCALING)
         for i in range(42):
             self.all_cards.append(Card(i, y))
 
@@ -63,6 +68,7 @@ class Hand(CardData):
                 self.selected = len(self.cards) - 1
 
     def draw(self, surf):
+        surf.blit(self.bkg_staff, (0, self.y + 40))
         for card in self.cards:
             #draw a border around the selected card
             if card.select:

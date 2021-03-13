@@ -42,10 +42,6 @@ RED = (255, 58, 58)
 
 SCALING = 1280/2339
 
-
-bkg_staff = pygame.image.load(load_resource('bkg_staff.jpg'))
-bkg_staff = pygame.transform.rotozoom(bkg_staff, 0, SCALING)
-
 if not args.debug:
     username = retrieve_username()
     client = Client(username)
@@ -69,9 +65,6 @@ def left():
     hand.cycle_left()
     if not args.debug:
         client.cycle_left()
-
-def draw_bkg(surf):
-    surf.blit(bkg_staff, (0, int(HEIGHT / 3)))
 
 
 def start_call():
@@ -144,7 +137,6 @@ def main():
         for arrow in arrows:
             arrow.check_mouse(mouse_pos)
 
-        draw_bkg(screen)
         for img in all_img:
             img.draw(screen)
 
