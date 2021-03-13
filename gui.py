@@ -51,6 +51,7 @@ if not args.debug:
 pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("draw(0)")
+hand = Hand(200)
 
 
 def right():
@@ -87,7 +88,7 @@ def main():
     debug_dialogue = MessageBox("", DEBUG_COOR, size=12)
 
     timer = TimeTimer(CLOCK_COOR)
-    hand = Hand(200)
+
     hand.add(4)
     hand.add(8)
     hand.add(9)
