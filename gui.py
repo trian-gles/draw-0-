@@ -86,6 +86,8 @@ def main():
     extern_card_info = MessageBox("External card info here", EXTERN_CARD_COOR, size=26, bkg_color=RED, text_color=BLACK)
 
     debug_dialogue = MessageBox("", DEBUG_COOR, size=12)
+    if args.debug:
+        debug_dialogue.change_msg("DEBUG MODE")
 
     timer = TimeTimer(CLOCK_COOR)
 

@@ -39,7 +39,7 @@ preamble = r"""#(set-global-staff-size 19.5)
 }"""
 
 score = abjad.Score(name="Score")
-notes = [abjad.Rest('r2') for _ in range(4)] + [abjad.Note("C5", (1, 4)) for _ in range(4)]
+notes = [abjad.Rest('r2') for _ in range(4)] + [abjad.Note("D5", (1, 4)) for _ in range(4)]
 container = abjad.Container(notes)
 repeat = abjad.Repeat()
 abjad.attach(repeat, container)
