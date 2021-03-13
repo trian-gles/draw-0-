@@ -74,3 +74,4 @@ class Hand(CardData):
             if card.select:
                 pygame.draw.rect(surf, (255, 0, 0), card.rect.inflate(10, 10))
             pygame.draw.rect(surf, (255, 255, 206), card.rect)
+            surf.blit(card.img, (card.rect.left, card.rect.top + 40))

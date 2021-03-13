@@ -10,7 +10,7 @@ import time
 import glob
 import os
 
-preamble = r"""#(set-global-staff-size 35)
+preamble = r"""#(set-global-staff-size 19.5)
 
 \paper {
     #(set-paper-size "a4" 'portrait)
@@ -68,7 +68,7 @@ for pdf in all_pdfs:
     width, height = jpeg_im.size
 
     print(width, height)
-    im_crop = jpeg_im.crop((10, 190, 270, 600))
+    im_crop = jpeg_im.crop((10, 247, 270, 470))
     im_crop.save(r'../resources/test_card.jpg', quality=95)
 
 delete_files = glob.glob(r"C:/Users/bkier/projects/draw(0)/abjad/output_dir/*")
