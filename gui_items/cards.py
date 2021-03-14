@@ -12,7 +12,10 @@ class CardData:
 class Card(CardData):
     def __init__(self, id, y):
         self.id = id
-        self.img = pygame.image.load("resources/test_card.jpg")
+        try:
+            self.img = pygame.image.load(f"resources/card_{id}.jpg")
+        except FileNotFoundError:
+            self.img = pygame.image.load(f"resources/test_card.jpg")
         self.rect = pygame.Rect(0, y, self.CARD_WIDTH, self.CARD_HEIGHT)
         self.select = False
 

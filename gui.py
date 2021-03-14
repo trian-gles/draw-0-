@@ -91,10 +91,10 @@ def main():
 
     timer = TimeTimer(CLOCK_COOR)
 
-    hand.add(4)
-    hand.add(8)
-    hand.add(9)
-    hand.add(10)
+    hand.add(0)
+    hand.add(2)
+    hand.add(5)
+    hand.add(1)
 
     start_btn = MessageButton("Start", START_COOR, start_call, bkg_color=GREEN)
     quit_btn = MessageButton("Quit", QUIT_COOR, quit_call, bkg_color=RED)

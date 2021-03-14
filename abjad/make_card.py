@@ -24,7 +24,10 @@ preamble = r"""#(set-global-staff-size 19.5)
 
     \context {
         \Staff
-        \override VerticalAxisGroup.staff-staff-spacing.minimum-distance = 16
+        \override VerticalAxisGroup.default-staff-staff-spacing =
+      #'((basic-distance . 8)
+         (minimum-distance . 7)
+         (padding . 1))
     }
     \context {
         \Score
