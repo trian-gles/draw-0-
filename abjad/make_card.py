@@ -21,14 +21,6 @@ preamble = r"""#(set-global-staff-size 19.5)
 
 \layout {
     indent = #0
-
-    \context {
-        \Staff
-        \override VerticalAxisGroup.default-staff-staff-spacing =
-      #'((basic-distance . 8)
-         (minimum-distance . 7)
-         (padding . 1))
-    }
     \context {
         \Score
         \override Clef.stencil = ##f
@@ -39,13 +31,20 @@ preamble = r"""#(set-global-staff-size 19.5)
     }
 }"""
 
+def slur_all(notes):
+    abjad.attach(abjad.StartSlur(), notes[0])
+    abjad.attach(abjad.StopSlur(), notes[-1])
+    return notes
+
 def card_0():
     notes = [abjad.Rest('r2')]
     return notes
 
 def card_1():
     notes = [abjad.Note("B4", (1, 4)), abjad.Note("E6", (1, 4))]
-    return notes
+    abjad.override(notes[1]).NoteHead.style = "#'triangle"
+    abjad.attach(abjad.Glissando(), notes[0])
+    return slur_all(notes)
 
 card_funcs = (card_0, card_1)
 
