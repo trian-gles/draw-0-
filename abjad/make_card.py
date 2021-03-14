@@ -29,49 +29,60 @@ preamble = r"""#(set-global-staff-size 19.5)
     \context {
         \Score
         \override Clef.stencil = ##f
-        \override NoteHead.transparent = ##t
         \override SpacingSpanner.strict-spacing = ##t
         \override SystemStartBar.stencil = ##f
-        \override Stem.stencil = ##f
         \override TimeSignature.transparent = ##t
         proportionalNotationDuration = #(ly:make-moment 1 16)
     }
 }"""
 
-score = abjad.Score(name="Score")
-notes = [abjad.Rest('r2') for _ in range(4)] + [abjad.Note("D5", (1, 4)) for _ in range(4)]
-container = abjad.Container(notes)
-repeat = abjad.Repeat()
-abjad.attach(repeat, container)
-staff = abjad.Staff([container])
-score.append(staff)
-note = abjad.select(score).note(0)
-time_signature = abjad.TimeSignature((12, 4))
-abjad.attach(time_signature, note)
+def card_0():
+    notes = [abjad.Rest('r2')]
+    return notes
+
+def card_1():
+    notes = [abjad.Note("B4", (1, 4)), abjad.Note("E6", (1, 4))]
+    return notes
+
+card_funcs = (card_0, card_1)
 
 
-lilypond_file = abjad.LilyPondFile(items=[preamble, score])
-abjad.show(lilypond_file)
+i = 0
 
-all_pdfs = glob.glob(r"C:\Users\bkier\projects\draw(0)\abjad\output_dir\*.pdf")
+for func in card_funcs:
+    score = abjad.Score(name="Score")
+    notes = func() + [abjad.Rest('r2') for _ in range(3)] + [abjad.Note("C5", (1, 4)) for _ in range(4)]
+    container = abjad.Container(notes)
+    repeat = abjad.Repeat()
+    abjad.attach(repeat, container)
+    staff = abjad.Staff([container])
+    score.append(staff)
+    note = abjad.select(score).note(0)
+    time_signature = abjad.TimeSignature((12, 4))
+    abjad.attach(time_signature, note)
 
-path = r"C:\Users\bkier\OneDrive\Desktop\poppler-21.03.0\Library\bin"
 
-for pdf in all_pdfs:
-    pdf_images = convert_from_path(pdf, poppler_path = path)
+    lilypond_file = abjad.LilyPondFile(items=[preamble, score])
+    abjad.show(lilypond_file)
 
-    for pdf_image in pdf_images:
-        pdf_image.save(r"output_dir\staff.jpg", "JPEG")
+    all_pdfs = glob.glob(r"C:\Users\bkier\projects\draw(0)\abjad\output_dir\*.pdf")
 
-    jpeg_im = Image.open(r"C:\Users\bkier\projects\draw(0)\abjad\output_dir\staff.jpg")
+    path = r"C:\Users\bkier\OneDrive\Desktop\poppler-21.03.0\Library\bin"
 
-    width, height = jpeg_im.size
+    for pdf in all_pdfs:
+        pdf_images = convert_from_path(pdf, poppler_path = path)
 
-    print(width, height)
-    im_crop = jpeg_im.crop((10, 247, 270, 470))
-    im_crop.save(r'../resources/test_card.jpg', quality=95)
+        for pdf_image in pdf_images:
+            pdf_image.save(r"output_dir\staff.jpg", "JPEG")
 
-delete_files = glob.glob(r"C:/Users/bkier/projects/draw(0)/abjad/output_dir/*")
-for f in delete_files:
-    print(f)
-    os.remove(f)
+        jpeg_im = Image.open(r"C:\Users\bkier\projects\draw(0)\abjad\output_dir\staff.jpg")
+
+        width, height = jpeg_im.size
+        im_crop = jpeg_im.crop((10, 247, 270, 470))
+        im_crop.save(f'../resources/card_{i}.jpg', quality=95)
+
+    delete_files = glob.glob(r"C:/Users/bkier/projects/draw(0)/abjad/output_dir/*")
+    for f in delete_files:
+        os.remove(f)
+    print(f"Built card {i}")
+    i += 1
