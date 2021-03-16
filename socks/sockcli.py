@@ -74,7 +74,7 @@ class Client:
                         self.hand.append(message_dict['id'])
                     if len(self.hand) > 0:
                         self.pass_card()
-
+                    print(self.hand)
                     return f"Received card to pass {message_dict['id']}"
                 elif message_dict["method"] == "deal":
                     self.hand.append(message_dict['id'])

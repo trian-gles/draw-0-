@@ -4,6 +4,7 @@ import os
 from socks import Client
 from gui_items import Arrow, TimeTimer, Hand, MessageBox, MessageButton
 from setup_prompt import retrieve_username
+from types import SimpleNamespace
 
 
 parser = argparse.ArgumentParser(description='Process some integers.')
@@ -40,7 +41,9 @@ RED = (255, 58, 58)
 
 SCALING = 1280/2339
 
-if not args.debug:
+if args.debug:
+    client = SimpleNamespace(hand=[0, 1, 2, 3])
+else:
     username = retrieve_username()
     client = Client(username)
 
@@ -87,10 +90,9 @@ def main():
 
     timer = TimeTimer(CLOCK_COOR)
 
-    hand.add(0)
-    hand.add(2)
-    hand.add(5)
-    hand.add(1)
+    if args.debug:
+        hand.selected = 0
+        hand.cards[0].select = True
 
     start_btn = MessageButton("Start", START_COOR, start_call, bkg_color=GREEN)
     quit_btn = MessageButton("Quit", QUIT_COOR, quit_call, bkg_color=RED)
@@ -103,6 +105,7 @@ def main():
     all_img = buttons + (timer,) + (hand,) + (card_info,) + (extern_card_info,) + (debug_dialogue,)
 
     while run:
+        hand.update(client.hand)
         mouse_pos = pygame.mouse.get_pos()
 
         for event in pygame.event.get():
