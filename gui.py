@@ -92,7 +92,6 @@ def main():
 
     if args.debug:
         hand.selected = 0
-        hand.cards[0].select = True
 
     start_btn = MessageButton("Start", START_COOR, start_call, bkg_color=GREEN)
     quit_btn = MessageButton("Quit", QUIT_COOR, quit_call, bkg_color=RED)
