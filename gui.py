@@ -1,13 +1,9 @@
 import argparse
 import pygame
-import sys
 import os
 from socks import Client
-from gui_items import Arrow, Text, TimeTimer, Hand, MessageBox, MessageButton
+from gui_items import Arrow, TimeTimer, Hand, MessageBox, MessageButton
 from setup_prompt import retrieve_username
-
-#Need to add: FIX THE TIMER!!!! make it rely on time.time, for now.
-#NEED TO FIX HAND NAMESPACE ISSUES!
 
 
 parser = argparse.ArgumentParser(description='Process some integers.')
@@ -21,6 +17,7 @@ if args.debug:
 
 def load_resource(filename):
     return os.path.join('resources', filename)
+
 
 WIDTH = 1280
 HEIGHT = 720
@@ -46,7 +43,6 @@ SCALING = 1280/2339
 if not args.debug:
     username = retrieve_username()
     client = Client(username)
-
 
 
 pygame.init()
@@ -107,7 +103,8 @@ def main():
     all_img = buttons + (timer,) + (hand,) + (card_info,) + (extern_card_info,) + (debug_dialogue,)
 
     while run:
-        chat_message = ""
+        mouse_pos = pygame.mouse.get_pos()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
@@ -133,8 +130,6 @@ def main():
 
         if timer.update():
             print("RESET")
-
-        mouse_pos = pygame.mouse.get_pos()
 
         for arrow in arrows:
             arrow.check_mouse(mouse_pos)

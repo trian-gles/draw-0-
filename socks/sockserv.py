@@ -1,10 +1,10 @@
 import socket
 import select
 import pickle
-import time
 import threading
 import os
 from random import choice, shuffle
+
 
 class Server:
     HEADER_LENGTH = 10
@@ -22,15 +22,13 @@ class Server:
 
         self.cards = list(range(42))
         shuffle(self.cards)
-        #The mode will go from "sleep" to "deal" to "pass" to "finish"
+        # The mode will go from "sleep" to "deal" to "pass" to "finish"
         self.mode = "sleep"
-
 
     def send_pickle(self, content_dict, send_sock):
         dict_pick = pickle.dumps(content_dict)
         pick_mess = bytes(f"{len(dict_pick):<{Server.HEADER_LENGTH}}", "utf-8") + dict_pick
         send_sock.send(pick_mess)
-
 
     def receive_message(self, client_socket):
         try:
@@ -41,10 +39,9 @@ class Server:
 
             message_length = int(message_header.decode('utf-8').strip())
             return {"header": message_header,
-            "data": client_socket.recv(message_length)}
+                    "data": client_socket.recv(message_length)}
         except:
             return False
-
 
     def deal_cards(self):
         user_keys = list(self.clients.keys())
@@ -58,19 +55,17 @@ class Server:
                     chosen_user = True
             threading.Timer(1, self.deal_cards).start()
         else:
-            #Finish the deal phase
+            # Finish the deal phase
             print("Moving to main phase")
             self.pass_cards()
 
-
     def deal_card_to(self, user):
-        #in the deal phase, sends a card to the selected user
+        # in the deal phase, sends a card to the selected user
         card_id = self.cards.pop()
         print(f"Sending card to {self.clients[user]['data'].decode('utf-8')}")
         self.clients[user]["cards"] += 1
         msg_dict = {"method": "deal", "id": card_id}
         self.send_pickle(msg_dict, user)
-
 
     def pass_cards(self):
         first_user = self.sockets_list[1]
@@ -81,7 +76,6 @@ class Server:
         msg_dict = {"method": "pass", "id": card_id}
         self.send_pickle(msg_dict, first_user)
         threading.Timer(1, self.pass_cards).start()
-
 
     def listen(self):
         read_sockets, _, exception_sockets = select.select(self.sockets_list, [], self.sockets_list)
@@ -119,7 +113,6 @@ class Server:
                 send_to_index = self.sockets_list.index(notified_socket) + 1
                 print(f"received message from {user['data'].decode('utf-8')}: {msg_dict}")
 
-
                 if msg_dict["method"] == "pass":
                     if send_to_index < len(self.sockets_list):
                         print(f"Passing card {msg_dict['id']}")
@@ -134,14 +127,14 @@ class Server:
                         print("Dealing cards")
                         self.deal_cards()
 
-
-#                for client_socket in self.clients:
-#                    if client_socket != notified_socket:
-#                        self.send_pickle(pickle.loads(message['data']), user['data'].decode('utf-8'), client_socket)
+        #                for client_socket in self.clients:
+        #                    if client_socket != notified_socket:
+        #                        self.send_pickle(pickle.loads(message['data']), user['data'].decode('utf-8'), client_socket)
 
         for notified_socket in exception_sockets:
             self.sockets_list.remove(notified_socket)
             del self.clients[notified_socket]
+
 
 if __name__ == "__main__":
     server = Server()

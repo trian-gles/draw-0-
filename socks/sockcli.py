@@ -1,10 +1,10 @@
 import socket
-import select
 import errno
 import sys
 import pickle
 
-class Client():
+
+class Client:
     HEADER_LENGTH = 10
     IP = "127.0.0.1"
     PORT = 8000
@@ -28,18 +28,18 @@ class Client():
         self.client_socket.send(pick_mess)
 
     def pass_card(self):
-        #removes the highlighted card and sends it
+        # removes the highlighted card and sends it
         card_id = self.hand.pop(self.selected_card)
         msg_dict = {"method": "pass", "id": card_id}
         self.send_pickle(msg_dict)
 
     def pass_null(self):
-        #passes an empty card informing the next user to pass
+        # passes an empty card informing the next user to pass
         msg_dict = {"method": "pass", "id": "null_card"}
         self.send_pickle(msg_dict)
 
     def send_len(self):
-        #informs the server of the size of the user's hand
+        # informs the server of the size of the user's hand
         msg_dict = {"method": "send_len", "len": len(self.hand)}
         self.send_pickle(msg_dict)
         print("Responding with hand length")
@@ -91,6 +91,7 @@ class Client():
         except Exception as e:
             print("General error : " + str(e))
             sys.exit()
+
 
 if __name__ == "__main__":
     username = input("Username : ")

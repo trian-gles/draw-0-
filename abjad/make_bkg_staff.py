@@ -1,10 +1,5 @@
 import abjad
-from pdf2image import convert_from_path, convert_from_bytes
-from pdf2image.exceptions import (
-    PDFInfoNotInstalledError,
-    PDFPageCountError,
-    PDFSyntaxError
-)
+from pdf2image import convert_from_path
 from PIL import Image
 
 preamble = r"""#(set-global-staff-size 35)
@@ -52,7 +47,7 @@ abjad.show(lilypond_file)
 
 path = r"C:\Users\bkier\OneDrive\Desktop\poppler-21.03.0\Library\bin"
 
-pdf_images = convert_from_path(r"C:\Users\bkier\projects\draw(0)\abjad\output_dir\base_stave.pdf", poppler_path = path)
+pdf_images = convert_from_path(r"C:\Users\bkier\projects\draw(0)\abjad\output_dir\base_stave.pdf", poppler_path=path)
 
 for pdf_image in pdf_images:
     pdf_image.save(r"output_dir\staff.jpg", "JPEG")
