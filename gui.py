@@ -18,6 +18,7 @@ args = parser.parse_args()
 if args.debug:
     print("DEBUG MODE")
 
+
 def load_resource(filename):
     return os.path.join('resources', filename)
 
@@ -81,7 +82,6 @@ def main():
 
     clock = pygame.time.Clock()
 
-
     card_info = MessageBox("The card info will go here", CARD_NOTIF_COOR, size=26, bkg_color=GREEN, text_color=BLACK)
     extern_card_info = MessageBox("External card info here", EXTERN_CARD_COOR, size=26, bkg_color=RED, text_color=BLACK)
 
@@ -129,7 +129,6 @@ def main():
                 debug_dialogue.change_msg(client_msg)
                 print(client_msg)
 
-
         screen.fill(DARK_BLUE)
 
         if timer.update():
@@ -145,6 +144,7 @@ def main():
 
         pygame.display.update()
         clock.tick(30)
+
 
 if __name__ == "__main__":
     main()

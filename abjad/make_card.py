@@ -17,6 +17,7 @@ preamble = r"""#(set-global-staff-size 19.5)
     top-margin = 40
     left-margin = 0
     right-margin = 0
+    top-system-spacing.basic-distance = #20
 }
 
 \layout {
@@ -80,7 +81,7 @@ for func in card_funcs:
         jpeg_im = Image.open(r"C:\Users\bkier\projects\draw(0)\abjad\output_dir\staff.jpg")
 
         width, height = jpeg_im.size
-        im_crop = jpeg_im.crop((10, 247, 270, 470))
+        im_crop = jpeg_im.crop((10, 475, 270, 700))
         im_crop.save(f'../resources/card_{i}.jpg', quality=95)
 
     delete_files = glob.glob(r"C:/Users/bkier/projects/draw(0)/abjad/output_dir/*")
