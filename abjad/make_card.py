@@ -45,7 +45,16 @@ def card_1():
     return slur_all(notes)
 
 
-card_funcs = (card_0, card_1)
+def card_2():
+    # this card needs to be spaced more!
+    trill = []
+    for _ in range(3):
+        trill . extend([abjad.Note("B4", (1, 32)), abjad.Note("C5", (1, 32))])
+    notes = slur_all(trill) + [abjad.Rest('r16')]
+    return notes
+
+
+card_funcs = (card_0, card_1, card_2)
 
 i = 0
 
