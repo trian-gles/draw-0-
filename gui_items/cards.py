@@ -58,6 +58,7 @@ class Hand(CardData):
         if self.selected != None:
             if self.selected > len(self.cards) - 1:
                 self.selected = len(self.cards) - 1
+            self.cards[self.selected].select = True
 
     def draw(self, surf):
         surf.blit(self.bkg_staff, (0, self.y + 40))
