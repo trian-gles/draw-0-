@@ -25,12 +25,10 @@ class Hand(CardData):
     def __init__(self, y):
         self.cards = []
         self.y = y
-        self.all_cards = []
+        self.all_cards = [Card(i, y) for i in range(42)]
         self.selected = None
         bkg_staff = pygame.image.load('resources/bkg_staff.jpg')
         self.bkg_staff = pygame.transform.rotozoom(bkg_staff, 0, self.SCALING)
-        for i in range(42):
-            self.all_cards.append(Card(i, y))
 
     def add(self, id):
         self.cards.append(self.all_cards[id])
