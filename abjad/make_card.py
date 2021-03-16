@@ -27,6 +27,13 @@ preamble = r"""#(set-global-staff-size 19.5)
 }"""
 
 
+def blank_space():
+    blank = abjad.Note("B4", (1, 4))
+    abjad.override(blank).NoteHead.transparent = "##t"
+    abjad.override(blank).Stem.stencil = "##f"
+    return blank
+
+
 def slur_all(notes):
     abjad.attach(abjad.StartSlur(), notes[0])
     abjad.attach(abjad.StopSlur(), notes[-1])
@@ -49,12 +56,17 @@ def card_2():
     # this card needs to be spaced more!
     trill = []
     for _ in range(3):
-        trill . extend([abjad.Note("B4", (1, 32)), abjad.Note("C5", (1, 32))])
-    notes = slur_all(trill) + [abjad.Rest('r16')]
+        trill.extend([abjad.Note("B4", (1, 32)), abjad.Note("C5", (1, 32))])
+    notes = slur_all(trill) + [abjad.Rest('r16')] + [blank_space()]
     return notes
 
 
-card_funcs = (card_0, card_1, card_2)
+def card_3():
+    notes = [abjad.Note("C5", (1, 8)), abjad.Rest('r16'), abjad.Note("G4", (1, 8)), abjad.Rest('r16'), blank_space()]
+    return notes
+
+
+card_funcs = (card_0, card_1, card_2, card_3)
 
 i = 0
 
