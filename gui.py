@@ -90,7 +90,6 @@ def main():
 
     timer = TimeTimer(CLOCK_COOR)
 
-    hand.update(client.hand)
     if args.debug:
         hand.selected = 0
         hand.cards[0].select = True
@@ -106,6 +105,7 @@ def main():
     all_img = buttons + (timer,) + (hand,) + (card_info,) + (extern_card_info,) + (debug_dialogue,)
 
     while run:
+        hand.update(client.hand)
         mouse_pos = pygame.mouse.get_pos()
 
         for event in pygame.event.get():
