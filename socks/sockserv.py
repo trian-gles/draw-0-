@@ -68,6 +68,9 @@ class Server:
         self.send_pickle(msg_dict, user)
 
     def pass_cards(self):
+        if len(self.sockets_list) < 2:
+            print("All users have quit, closing server")
+            os._exit(0)
         first_user = self.sockets_list[1]
         if len(self.cards) > 0:
             card_id = self.cards.pop()
