@@ -7,8 +7,8 @@ from setup_prompt import retrieve_username
 from types import SimpleNamespace
 
 
-parser = argparse.ArgumentParser(description='Process some integers.')
-parser.add_argument('-name')
+parser = argparse.ArgumentParser(description='Main script for piece')
+parser.add_argument('-name', help='username for debug and logging purposes')
 parser.add_argument('--debug', action='store_true',
                     help='run the gui without a client')
 
