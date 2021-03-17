@@ -1,6 +1,7 @@
 import pygame
 from math import cos, sin, radians
 
+
 class Timer:
     RADIUS = 20
     LENGTH = 240

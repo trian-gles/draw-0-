@@ -2,6 +2,9 @@ import pygame
 from math import cos, sin, radians
 import time
 
+# Timer should be adjusted to reset on reception of new card!!
+
+
 class TimeTimer:
     RADIUS = 20
     SEC_LENGTH = 8
@@ -31,8 +34,3 @@ class TimeTimer:
         x_arm = int(sin(angle * -1) * self.RADIUS) + self.loc[0]
         y_arm = int(cos(angle) * self.RADIUS) + self.loc[1]
         pygame.draw.line(surf, (255, 0, 0), self.loc, (x_arm, y_arm))
-
-
-if __name__ == "__main__":
-    timer = Timer(0)
-    print(timer.start_time)
