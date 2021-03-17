@@ -1,7 +1,5 @@
 import unittest
-import pygame
-from gui_items import Arrow, Text, MessageBox, Timer, Hand, TimeTimer
-import datetime
+from gui_items import Arrow, Text, MessageBox, Hand, TimeTimer
 from freezegun import freeze_time
 import time
 
