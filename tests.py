@@ -2,6 +2,7 @@ import unittest
 from gui_items import Arrow, Text, MessageBox, Hand, TimeTimer
 from freezegun import freeze_time
 import time
+import pygame
 
 
 class TestArrow(unittest.TestCase):
@@ -59,5 +60,18 @@ class TestTimeTimer(unittest.TestCase):
         self.assertEqual(self.timer.lap, 0)
 
 
+class TestText(unittest.TestCase):
+    def setUp(self):
+        self.text = Text("TEST", (20, 20))
+
+    def test_msg(self):
+        self.assertEqual(self.text.msg, "TEST")
+
+    def test_change(self):
+        self.text.change_msg("TEST2")
+        self.assertEqual(self.text.msg, "TEST2")
+
+
 if __name__ == "__main__":
+    pygame.font.init()
     unittest.main()
