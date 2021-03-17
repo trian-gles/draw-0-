@@ -5,3 +5,5 @@ socks/__pycache__/
 __pycache__/
 
 bkg_staff.jpg~
+
+socks/server.log

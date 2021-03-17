@@ -1,0 +1,134 @@
+DEBUG:root:2021-03-17 11:18:01.659626 : Building server on IP 127.0.0.1, PORT 8000
+DEBUG:root:2021-03-17 11:18:01.823080 : accepted new connection from 127.0.0.1: 60616 username = nobs
+DEBUG:root:2021-03-17 11:18:02.136069 : accepted new connection from 127.0.0.1: 60615 username = kiks
+DEBUG:root:2021-03-17 11:18:04.921586 : received message from kiks: {'method': 'start'}
+DEBUG:root:2021-03-17 11:18:04.922579 : User kiks has initiated the piece
+DEBUG:root:2021-03-17 11:18:04.922579 : Sending card to kiks
+DEBUG:root:2021-03-17 11:18:05.924871 : Sending card to nobs
+DEBUG:root:2021-03-17 11:18:06.925500 : Sending card to nobs
+DEBUG:root:2021-03-17 11:18:07.926401 : Sending card to kiks
+DEBUG:root:2021-03-17 11:18:08.927702 : Sending card to kiks
+DEBUG:root:2021-03-17 11:18:09.927820 : Sending card to nobs
+DEBUG:root:2021-03-17 11:18:10.929559 : Sending card to kiks
+DEBUG:root:2021-03-17 11:18:11.930977 : Sending card to nobs
+DEBUG:root:2021-03-17 11:18:12.931082 : Moving to main phase
+DEBUG:root:2021-03-17 11:18:12.940050 : received message from nobs: {'method': 'pass', 'id': 12}
+DEBUG:root:2021-03-17 11:18:12.941043 : Passing card 12
+DEBUG:root:2021-03-17 11:18:12.962971 : received message from kiks: {'method': 'pass', 'id': 19}
+DEBUG:root:2021-03-17 11:18:13.949315 : received message from nobs: {'method': 'pass', 'id': 2}
+DEBUG:root:2021-03-17 11:18:13.950303 : Passing card 2
+DEBUG:root:2021-03-17 11:18:13.967247 : received message from kiks: {'method': 'pass', 'id': 11}
+DEBUG:root:2021-03-17 11:18:14.960743 : received message from nobs: {'method': 'pass', 'id': 35}
+DEBUG:root:2021-03-17 11:18:14.960743 : Passing card 35
+DEBUG:root:2021-03-17 11:18:14.986656 : received message from kiks: {'method': 'pass', 'id': 27}
+DEBUG:root:2021-03-17 11:18:15.935385 : received message from nobs: {'method': 'pass', 'id': 10}
+DEBUG:root:2021-03-17 11:18:15.935385 : Passing card 10
+DEBUG:root:2021-03-17 11:18:15.959311 : received message from kiks: {'method': 'pass', 'id': 14}
+DEBUG:root:2021-03-17 11:18:16.946906 : received message from nobs: {'method': 'pass', 'id': 32}
+DEBUG:root:2021-03-17 11:18:16.947899 : Passing card 32
+DEBUG:root:2021-03-17 11:18:16.974808 : received message from kiks: {'method': 'pass', 'id': 35}
+DEBUG:root:2021-03-17 11:18:17.955938 : received message from nobs: {'method': 'pass', 'id': 15}
+DEBUG:root:2021-03-17 11:18:17.956941 : Passing card 15
+DEBUG:root:2021-03-17 11:18:17.988839 : received message from kiks: {'method': 'pass', 'id': 2}
+DEBUG:root:2021-03-17 11:18:18.936113 : received message from nobs: {'method': 'pass', 'id': 22}
+DEBUG:root:2021-03-17 11:18:18.936113 : Passing card 22
+DEBUG:root:2021-03-17 11:18:18.972038 : received message from kiks: {'method': 'pass', 'id': 10}
+DEBUG:root:2021-03-17 11:18:19.956555 : received message from nobs: {'method': 'pass', 'id': 6}
+DEBUG:root:2021-03-17 11:18:19.956555 : Passing card 6
+DEBUG:root:2021-03-17 11:18:19.991441 : received message from kiks: {'method': 'pass', 'id': 32}
+DEBUG:root:2021-03-17 11:18:20.958190 : received message from nobs: {'method': 'pass', 'id': 41}
+DEBUG:root:2021-03-17 11:18:20.959149 : Passing card 41
+DEBUG:root:2021-03-17 11:18:21.965906 : received message from nobs: {'method': 'pass', 'id': 29}
+DEBUG:root:2021-03-17 11:18:21.965906 : Passing card 29
+DEBUG:root:2021-03-17 11:18:22.353181 : received message from kiks: {'method': 'pass', 'id': 15}
+DEBUG:root:2021-03-17 11:18:22.372162 : received message from kiks: {'method': 'pass', 'id': 22}
+DEBUG:root:2021-03-17 11:18:22.940202 : received message from nobs: {'method': 'pass', 'id': 30}
+DEBUG:root:2021-03-17 11:18:22.940202 : Passing card 30
+DEBUG:root:2021-03-17 11:18:22.944190 : received message from kiks: {'method': 'pass', 'id': 6}
+DEBUG:root:2021-03-17 11:18:23.958625 : received message from nobs: {'method': 'pass', 'id': 0}
+DEBUG:root:2021-03-17 11:18:23.958625 : Passing card 0
+DEBUG:root:2021-03-17 11:18:23.976601 : received message from kiks: {'method': 'pass', 'id': 41}
+DEBUG:root:2021-03-17 11:18:24.969844 : received message from nobs: {'method': 'pass', 'id': 21}
+DEBUG:root:2021-03-17 11:18:24.969844 : Passing card 21
+DEBUG:root:2021-03-17 11:18:24.988778 : received message from kiks: {'method': 'pass', 'id': 29}
+DEBUG:root:2021-03-17 11:18:25.947764 : received message from nobs: {'method': 'pass', 'id': 1}
+DEBUG:root:2021-03-17 11:18:25.947764 : Passing card 1
+DEBUG:root:2021-03-17 11:18:25.963711 : received message from kiks: {'method': 'pass', 'id': 30}
+DEBUG:root:2021-03-17 11:18:26.959003 : received message from nobs: {'method': 'pass', 'id': 31}
+DEBUG:root:2021-03-17 11:18:26.959003 : Passing card 31
+DEBUG:root:2021-03-17 11:18:26.969984 : received message from kiks: {'method': 'pass', 'id': 0}
+DEBUG:root:2021-03-17 11:18:27.969688 : received message from nobs: {'method': 'pass', 'id': 4}
+DEBUG:root:2021-03-17 11:18:27.969688 : Passing card 4
+DEBUG:root:2021-03-17 11:18:27.979177 : received message from kiks: {'method': 'pass', 'id': 1}
+DEBUG:root:2021-03-17 11:18:28.975509 : received message from nobs: {'method': 'pass', 'id': 20}
+DEBUG:root:2021-03-17 11:18:28.975509 : Passing card 20
+DEBUG:root:2021-03-17 11:18:28.995460 : received message from kiks: {'method': 'pass', 'id': 21}
+DEBUG:root:2021-03-17 11:18:29.954099 : received message from nobs: {'method': 'pass', 'id': 28}
+DEBUG:root:2021-03-17 11:18:29.955100 : Passing card 28
+DEBUG:root:2021-03-17 11:18:29.965057 : received message from kiks: {'method': 'pass', 'id': 31}
+DEBUG:root:2021-03-17 11:18:30.966120 : received message from nobs: {'method': 'pass', 'id': 16}
+DEBUG:root:2021-03-17 11:18:30.966120 : Passing card 16
+DEBUG:root:2021-03-17 11:18:30.977091 : received message from kiks: {'method': 'pass', 'id': 20}
+DEBUG:root:2021-03-17 11:18:31.967908 : received message from nobs: {'method': 'pass', 'id': 34}
+DEBUG:root:2021-03-17 11:18:31.968906 : Passing card 34
+DEBUG:root:2021-03-17 11:18:31.980873 : received message from kiks: {'method': 'pass', 'id': 4}
+DEBUG:root:2021-03-17 11:18:32.976023 : received message from nobs: {'method': 'pass', 'id': 7}
+DEBUG:root:2021-03-17 11:18:32.976023 : Passing card 7
+DEBUG:root:2021-03-17 11:18:32.986977 : received message from kiks: {'method': 'pass', 'id': 28}
+DEBUG:root:2021-03-17 11:18:33.952167 : received message from nobs: {'method': 'pass', 'id': 8}
+DEBUG:root:2021-03-17 11:18:33.953158 : Passing card 8
+DEBUG:root:2021-03-17 11:18:33.961137 : received message from kiks: {'method': 'pass', 'id': 16}
+DEBUG:root:2021-03-17 11:18:34.959604 : received message from nobs: {'method': 'pass', 'id': 40}
+DEBUG:root:2021-03-17 11:18:34.959604 : Passing card 40
+DEBUG:root:2021-03-17 11:18:34.961591 : received message from kiks: {'method': 'pass', 'id': 34}
+DEBUG:root:2021-03-17 11:18:35.957123 : received message from nobs: {'method': 'pass', 'id': 23}
+DEBUG:root:2021-03-17 11:18:35.957123 : Passing card 23
+DEBUG:root:2021-03-17 11:18:35.966046 : received message from kiks: {'method': 'pass', 'id': 7}
+DEBUG:root:2021-03-17 11:18:36.964733 : received message from nobs: {'method': 'pass', 'id': 17}
+DEBUG:root:2021-03-17 11:18:36.964733 : Passing card 17
+DEBUG:root:2021-03-17 11:18:36.977687 : received message from kiks: {'method': 'pass', 'id': 8}
+DEBUG:root:2021-03-17 11:18:37.981334 : received message from nobs: {'method': 'pass', 'id': 25}
+DEBUG:root:2021-03-17 11:18:37.982331 : Passing card 25
+DEBUG:root:2021-03-17 11:18:37.992306 : received message from kiks: {'method': 'pass', 'id': 40}
+DEBUG:root:2021-03-17 11:18:38.954270 : received message from nobs: {'method': 'pass', 'id': 18}
+DEBUG:root:2021-03-17 11:18:38.954270 : Passing card 18
+DEBUG:root:2021-03-17 11:18:38.967233 : received message from kiks: {'method': 'pass', 'id': 23}
+DEBUG:root:2021-03-17 11:18:39.960292 : received message from nobs: {'method': 'pass', 'id': 9}
+DEBUG:root:2021-03-17 11:18:39.961289 : Passing card 9
+DEBUG:root:2021-03-17 11:18:39.980228 : received message from kiks: {'method': 'pass', 'id': 17}
+DEBUG:root:2021-03-17 11:18:40.969084 : received message from nobs: {'method': 'pass', 'id': 38}
+DEBUG:root:2021-03-17 11:18:40.970081 : Passing card 38
+DEBUG:root:2021-03-17 11:18:40.988021 : received message from kiks: {'method': 'pass', 'id': 25}
+DEBUG:root:2021-03-17 11:18:41.956429 : received message from nobs: {'method': 'pass', 'id': 37}
+DEBUG:root:2021-03-17 11:18:41.956429 : Passing card 37
+DEBUG:root:2021-03-17 11:18:41.989836 : received message from kiks: {'method': 'pass', 'id': 18}
+DEBUG:root:2021-03-17 11:18:42.974086 : received message from nobs: {'method': 'pass', 'id': 24}
+DEBUG:root:2021-03-17 11:18:42.974086 : Passing card 24
+DEBUG:root:2021-03-17 11:18:42.995021 : received message from kiks: {'method': 'pass', 'id': 9}
+DEBUG:root:2021-03-17 11:18:43.970422 : received message from nobs: {'method': 'pass', 'id': 26}
+DEBUG:root:2021-03-17 11:18:43.971417 : Passing card 26
+DEBUG:root:2021-03-17 11:18:43.982376 : received message from kiks: {'method': 'pass', 'id': 38}
+DEBUG:root:2021-03-17 11:18:44.956096 : received message from nobs: {'method': 'pass', 'id': 5}
+DEBUG:root:2021-03-17 11:18:44.957093 : Passing card 5
+DEBUG:root:2021-03-17 11:18:44.960083 : received message from kiks: {'method': 'pass', 'id': 37}
+DEBUG:root:2021-03-17 11:18:45.977052 : received message from nobs: {'method': 'pass', 'id': 36}
+DEBUG:root:2021-03-17 11:18:45.977052 : Passing card 36
+DEBUG:root:2021-03-17 11:18:46.005963 : received message from kiks: {'method': 'pass', 'id': 24}
+DEBUG:root:2021-03-17 11:18:46.958440 : received message from nobs: {'method': 'pass', 'id': 13}
+DEBUG:root:2021-03-17 11:18:46.958440 : Passing card 13
+DEBUG:root:2021-03-17 11:18:46.984443 : received message from kiks: {'method': 'pass', 'id': 26}
+DEBUG:root:2021-03-17 11:18:47.970458 : received message from nobs: {'method': 'pass', 'id': 39}
+DEBUG:root:2021-03-17 11:18:47.971451 : Passing card 39
+DEBUG:root:2021-03-17 11:18:47.974441 : received message from kiks: {'method': 'pass', 'id': 5}
+DEBUG:root:2021-03-17 11:18:48.989115 : received message from nobs: {'method': 'pass', 'id': 3}
+DEBUG:root:2021-03-17 11:18:48.990120 : Passing card 3
+DEBUG:root:2021-03-17 11:18:49.005063 : received message from kiks: {'method': 'pass', 'id': 36}
+DEBUG:root:2021-03-17 11:18:49.960398 : received message from nobs: {'method': 'pass', 'id': 33}
+DEBUG:root:2021-03-17 11:18:49.960398 : Passing card 33
+DEBUG:root:2021-03-17 11:18:49.964385 : received message from kiks: {'method': 'pass', 'id': 13}
+DEBUG:root:2021-03-17 11:18:50.061071 : Closed connection from nobs
+DEBUG:root:2021-03-17 11:18:50.995430 : received message from kiks: {'method': 'pass', 'id': 39}
+DEBUG:root:2021-03-17 11:18:52.034265 : received message from kiks: {'method': 'pass', 'id': 3}
+DEBUG:root:2021-03-17 11:18:53.035520 : received message from kiks: {'method': 'pass', 'id': 33}
+DEBUG:root:2021-03-17 11:18:54.089548 : Closed connection from kiks
+DEBUG:root:2021-03-17 11:18:55.014970 : All users have quit, closing server

@@ -4,6 +4,10 @@ import pickle
 import threading
 import os
 from random import choice, shuffle
+import logging
+import datetime
+
+
 
 
 class Server:
@@ -12,6 +16,8 @@ class Server:
     PORT = 8000
 
     def __init__(self):
+        logging.basicConfig(filename="server.log", level=logging.DEBUG, filemode='w')
+        self.print_log(f"Building server on IP {self.IP}, PORT {self.PORT}")
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.server_socket.bind((Server.IP, Server.PORT))
@@ -24,6 +30,10 @@ class Server:
         shuffle(self.cards)
         # The mode will go from "sleep" to "deal" to "pass" to "finish"
         self.mode = "sleep"
+
+    def print_log(self, msg):
+        print(msg)
+        logging.debug(str(datetime.datetime.now()) + " : " + msg)
 
     def send_pickle(self, content_dict, send_sock):
         dict_pick = pickle.dumps(content_dict)
@@ -56,20 +66,20 @@ class Server:
             threading.Timer(1, self.deal_cards).start()
         else:
             # Finish the deal phase
-            print("Moving to main phase")
+            self.print_log("Moving to main phase")
             self.pass_cards()
 
     def deal_card_to(self, user):
         # in the deal phase, sends a card to the selected user
         card_id = self.cards.pop()
-        print(f"Sending card to {self.clients[user]['data'].decode('utf-8')}")
+        self.print_log(f"Sending card to {self.clients[user]['data'].decode('utf-8')}")
         self.clients[user]["cards"] += 1
         msg_dict = {"method": "deal", "id": card_id}
         self.send_pickle(msg_dict, user)
 
     def pass_cards(self):
         if len(self.sockets_list) < 2:
-            print("All users have quit, closing server")
+            self.print_log("All users have quit, closing server")
             os._exit(0)
         first_user = self.sockets_list[1]
         if len(self.cards) > 0:
@@ -95,14 +105,15 @@ class Server:
                 user["cards"] = 0
                 self.clients[client_socket] = user
 
-                print(f"accepted new connection from \
-    {client_addr[0]}: {client_addr[1]} username = {user['data'].decode('utf-8')}")
+                self.print_log(f"accepted new connection from \
+{client_addr[0]}: {client_addr[1]} username = {user['data'].decode('utf-8')}")
+
 
             else:
                 message = self.receive_message(notified_socket)
 
                 if message is False:
-                    print(f"Closed connection from {self.clients[notified_socket]['data'].decode('utf-8')}")
+                    self.print_log(f"Closed connection from {self.clients[notified_socket]['data'].decode('utf-8')}")
 
                     if self.clients[notified_socket]['data'].decode('utf-8') == "debug":
                         quit()
@@ -112,13 +123,14 @@ class Server:
                     continue
 
                 user = self.clients[notified_socket]
+                username = user['data'].decode('utf-8')
                 msg_dict = pickle.loads(message['data'])
                 send_to_index = self.sockets_list.index(notified_socket) + 1
-                print(f"received message from {user['data'].decode('utf-8')}: {msg_dict}")
+                self.print_log(f"received message from {user['data'].decode('utf-8')}: {msg_dict}")
 
                 if msg_dict["method"] == "pass":
                     if send_to_index < len(self.sockets_list):
-                        print(f"Passing card {msg_dict['id']}")
+                        self.print_log(f"Passing card {msg_dict['id']}")
                         self.send_pickle(msg_dict, self.sockets_list[send_to_index])
                     else:
                         print(f"Discarding {msg_dict['id']}")
@@ -127,7 +139,7 @@ class Server:
                 elif msg_dict["method"] == "start":
                     if self.mode == "sleep":
                         self.mode = "deal"
-                        print("Dealing cards")
+                        self.print_log(f"User {username} has initiated the piece")
                         self.deal_cards()
 
         #                for client_socket in self.clients:
