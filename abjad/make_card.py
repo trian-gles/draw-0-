@@ -34,6 +34,20 @@ def blank_space():
     return blank
 
 
+def make_triplets(notes):
+    if len(notes) % 3 != 0:
+        print(f"{notes} cannot be divided by 3!")
+        exit(-1)
+    triplets = []
+    for _ in range(int(len(notes) / 3)):
+        triplet = []
+        for h in range(3):
+            triplet.append(notes.pop(0))
+        print(triplet)
+        triplets.append(abjad.Tuplet((2, 3), triplet))
+    return triplets
+
+
 def slur_all(notes):
     abjad.attach(abjad.StartSlur(), notes[0])
     abjad.attach(abjad.StopSlur(), notes[-1])
@@ -66,7 +80,15 @@ def card_3():
     return notes
 
 
-card_funcs = (card_0, card_1, card_2, card_3)
+def card_4():
+    # spacing needs to be fixed
+    div = (1, 8)
+    notes = [abjad.Rest('r8')] + [abjad.Note(n, div) for n in ("G4", "Ab4", "G4", "F#4")] + [abjad.Rest('r8')]
+    trips = make_triplets(notes)
+    return trips
+
+
+card_funcs = (card_0, card_1, card_2, card_3, card_4)
 
 i = 0
 
