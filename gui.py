@@ -8,10 +8,13 @@ from types import SimpleNamespace
 
 
 parser = argparse.ArgumentParser(description='Process some integers.')
+parser.add_argument('-name')
 parser.add_argument('--debug', action='store_true',
                     help='run the gui without a client')
 
 args = parser.parse_args()
+if args.name:
+    print(f"Running as user {args.name}")
 if args.debug:
     print("DEBUG MODE")
 
@@ -44,7 +47,10 @@ SCALING = 1280/2339
 if args.debug:
     client = SimpleNamespace(hand=[4, 1, 2, 3])
 else:
-    username = retrieve_username()
+    if args.name:
+        username = args.name
+    else:
+        username = retrieve_username()
     client = Client(username)
 
 
