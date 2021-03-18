@@ -4,6 +4,7 @@ from socks import Server, Client
 from freezegun import freeze_time
 import time
 import pygame
+import warnings
 
 
 class TestArrow(unittest.TestCase):
@@ -77,11 +78,19 @@ class TestSockets(unittest.TestCase):
     def setUp(self):
         self.server = Server()
         self.client = Client("TEST")
+        self.server.listen()
+        warnings.filterwarnings("ignore", category=ResourceWarning)
 
     def testConnect(self):
-        self.server.listen()
+        self.assertEqual(len(self.server.sockets_list), 2)
         dict_entry = self.server.clients[self.server.sockets_list[1]]
         self.assertEqual(dict_entry['data'].decode('UTF-8'), 'TEST')
+
+    def testStart(self):
+        self.client.send_start()
+        self.server.listen()
+        self.assertEqual(self.server.mode, "deal")
+        self.client.listen()
 
     def tearDown(self):
         self.client.client_socket.close()
