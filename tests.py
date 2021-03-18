@@ -1,5 +1,6 @@
 import unittest
 from gui_items import Arrow, Text, MessageBox, Hand, TimeTimer
+from socks import Server, Client
 from freezegun import freeze_time
 import time
 import pygame
@@ -70,6 +71,21 @@ class TestText(unittest.TestCase):
     def test_change(self):
         self.text.change_msg("TEST2")
         self.assertEqual(self.text.msg, "TEST2")
+
+
+class TestSockets(unittest.TestCase):
+    def setUp(self):
+        self.server = Server()
+        self.client = Client("TEST")
+
+    def testConnect(self):
+        self.server.listen()
+        dict_entry = self.server.clients[self.server.sockets_list[1]]
+        self.assertEqual(dict_entry['data'].decode('UTF-8'), 'TEST')
+
+    def tearDown(self):
+        self.client.client_socket.close()
+        self.server.server_socket.close()
 
 
 if __name__ == "__main__":
