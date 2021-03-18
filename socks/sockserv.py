@@ -12,15 +12,13 @@ import datetime
 
 class Server:
     HEADER_LENGTH = 10
-    IP = "127.0.0.1"
-    PORT = 8000
 
-    def __init__(self):
+    def __init__(self, ip="127.0.0.1", port=8000):
         logging.basicConfig(filename="server.log", level=logging.DEBUG, filemode='w')
-        self.print_log(f"Building server on IP {self.IP}, PORT {self.PORT}")
+        self.print_log(f"Building server on IP {ip}, PORT {port}")
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        self.server_socket.bind((Server.IP, Server.PORT))
+        self.server_socket.bind((ip, port))
         self.server_socket.listen()
 
         self.sockets_list = [self.server_socket]
