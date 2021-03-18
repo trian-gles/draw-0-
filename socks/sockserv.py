@@ -59,7 +59,10 @@ class Server:
             while not chosen_user:
                 pot_user = choice(user_keys)
                 if self.clients[pot_user]["cards"] < 4:
-                    self.deal_card_to(pot_user)
+                    try:
+                        self.deal_card_to(pot_user)
+                    except ConnectionAbortedError:
+                        return
                     chosen_user = True
             threading.Timer(1, self.deal_cards).start()
         else:
