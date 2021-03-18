@@ -75,8 +75,8 @@ class TestText(unittest.TestCase):
 
 
 class TestSockets(unittest.TestCase):
-    def setUp(self):
-        self.server = Server()
+    def setUp(self, **kwargs):
+        self.server = Server(deal_time=1, pass_time=1)
         self.client = Client("TEST")
         self.server.listen()
         warnings.filterwarnings("ignore", category=ResourceWarning)
@@ -86,11 +86,12 @@ class TestSockets(unittest.TestCase):
         dict_entry = self.server.clients[self.server.sockets_list[1]]
         self.assertEqual(dict_entry['data'].decode('UTF-8'), 'TEST')
 
-    def testStart(self):
+    def testDeal(self):
         self.client.send_start()
         self.server.listen()
         self.assertEqual(self.server.mode, "deal")
         self.client.listen()
+        self.assertEqual(len(self.client.hand), 1)
 
     def tearDown(self):
         self.client.client_socket.close()

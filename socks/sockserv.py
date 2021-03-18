@@ -13,7 +13,7 @@ import datetime
 class Server:
     HEADER_LENGTH = 10
 
-    def __init__(self, ip="127.0.0.1", port=8000):
+    def __init__(self, ip="127.0.0.1", port=8000, deal_time=1, pass_time=1):
         logging.basicConfig(filename="server.log", level=logging.DEBUG, filemode='w')
         self.print_log(f"Building server on IP {ip}, PORT {port}")
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -23,6 +23,9 @@ class Server:
 
         self.sockets_list = [self.server_socket]
         self.clients = {}
+
+        self.deal_time = deal_time
+        self.pass_time = pass_time
 
         self.cards = list(range(42))
         shuffle(self.cards)
