@@ -88,7 +88,40 @@ def card_4():
     return trips
 
 
-card_funcs = (card_0, card_1, card_2, card_3, card_4)
+def card_5():
+    notes = []
+    for _ in range(3):
+        low_f = abjad.Note("F3", (1, 16))
+        abjad.override(low_f).NoteHead.style = "#'triangle"
+        notes.append(low_f)
+    notes.append(abjad.Rest('r16'))
+    notes.append((blank_space()))
+    return notes
+
+
+def card_6():
+    notes = [abjad.Note(pitch, (1, 32)) for pitch in ['G4', 'A4', 'B4', 'C5']]
+    notes.append(abjad.Rest('r16'))
+    notes.append((blank_space()))
+    return notes
+
+
+def card_7():
+    note = abjad.Note('E6', (1, 2))
+    abjad.override(note).NoteHead.style = "#'triangle"
+    return [note]
+
+
+def card_8():
+    notes = [abjad.Note(pitch, (1, 8)) for pitch in ['A4', 'C5', 'E5', 'C5']]
+    return notes
+
+
+def card_9():
+    notes = [abjad.Note(pitch, (1, 8)) for pitch in ['E5', 'A4', 'C5', 'A4']]
+    return notes
+
+card_funcs = (card_0, card_1, card_2, card_3, card_4, card_5, card_6, card_7, card_8, card_9)
 
 i = 0
 
