@@ -4,7 +4,6 @@ import pygame
 
 class Text:
     def __init__(self, msg, loc, font, color=(255, 255, 255)):
-        pygame.sprite.Sprite.__init__(self)
         self.color = color
         self.msg = msg
         self.new_msg = msg

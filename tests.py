@@ -64,7 +64,7 @@ class TestTimeTimer(unittest.TestCase):
 
 class TestText(unittest.TestCase):
     def setUp(self):
-        self.text = Text("TEST", (20, 20))
+        self.text = Text("TEST", (20, 20), pygame.font.SysFont(None, 12))
 
     def test_msg(self):
         self.assertEqual(self.text.msg, "TEST")
