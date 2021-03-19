@@ -118,6 +118,11 @@ class CardBuilder:
         notes.append(abjad.Rest('r4'))
         return notes
 
+    def card_11():
+        notes = [abjad.Note("E4", (1, 4)), abjad.Note("F5", (1, 4))]
+        abjad.attach(abjad.Glissando(), notes[0])
+        return slur_all(notes)
+
 
 card_funcs = [func() for func in filter(lambda x: callable(x), CardBuilder.__dict__.values())]
 
