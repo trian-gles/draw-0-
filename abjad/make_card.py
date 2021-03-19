@@ -100,7 +100,7 @@ def card_5():
 
 
 def card_6():
-    notes = [abjad.Note(pitch, (1, 32)) for pitch in ['G4', 'A4', 'B4', 'C5']]
+    notes = slur_all([abjad.Note(pitch, (1, 32)) for pitch in ['G4', 'A4', 'B4', 'C5']])
     notes.append(abjad.Rest('r16'))
     notes.append((blank_space()))
     return notes
