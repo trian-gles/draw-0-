@@ -35,6 +35,7 @@ CARD_NOTIF_COOR = (int(WIDTH / 16), int(HEIGHT * 3 / 4))
 EXTERN_CARD_COOR = (CARD_NOTIF_COOR[0], CARD_NOTIF_COOR[1] + 60)
 DEBUG_COOR = (int(WIDTH * 1/2), int(HEIGHT * 1 / 16))
 
+
 BLACK = (55, 55, 55)
 DARK_BLUE = (39, 44, 73)
 WHITE = (255, 255, 255)
@@ -58,6 +59,7 @@ pygame.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("draw(0)")
 hand = Hand(200)
+FONT = pygame.font.Font('resources/JetBrainsMono-Medium.ttf', 18)
 
 
 def right():
@@ -87,10 +89,10 @@ def main():
 
     clock = pygame.time.Clock()
 
-    card_info = MessageBox("The card info will go here", CARD_NOTIF_COOR, size=26, bkg_color=GREEN, text_color=BLACK)
-    extern_card_info = MessageBox("External card info here", EXTERN_CARD_COOR, size=26, bkg_color=RED, text_color=BLACK)
+    card_info = MessageBox("The card info will go here", CARD_NOTIF_COOR, FONT, bkg_color=GREEN, text_color=BLACK)
+    extern_card_info = MessageBox("External card info here", EXTERN_CARD_COOR, FONT, bkg_color=RED, text_color=BLACK)
 
-    debug_dialogue = MessageBox("", DEBUG_COOR, size=12)
+    debug_dialogue = MessageBox("", DEBUG_COOR, FONT)
     if args.debug:
         debug_dialogue.change_msg("DEBUG MODE")
 
@@ -99,8 +101,8 @@ def main():
     if args.debug:
         hand.selected = 0
 
-    start_btn = MessageButton("Start", START_COOR, start_call, bkg_color=GREEN)
-    quit_btn = MessageButton("Quit", QUIT_COOR, quit_call, bkg_color=RED)
+    start_btn = MessageButton("Start", START_COOR, start_call, FONT, bkg_color=GREEN)
+    quit_btn = MessageButton("Quit", QUIT_COOR, quit_call, FONT, bkg_color=RED)
 
     arrow_r = Arrow(ARROW_R_COOR, True, right)
     arrow_l = Arrow(ARROW_L_COOR, False, left)

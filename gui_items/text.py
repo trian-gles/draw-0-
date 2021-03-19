@@ -3,14 +3,14 @@ import pygame
 
 
 class Text:
-    def __init__(self, msg, loc, size=20, color=(255, 255, 255)):
+    def __init__(self, msg, loc, font, color=(255, 255, 255)):
         pygame.sprite.Sprite.__init__(self)
         self.color = color
         self.msg = msg
         self.new_msg = msg
         self.loc = loc
-        self.font = pygame.font.SysFont(None, size)
-        self.image = self.font.render(msg, 0, color)
+        self.font = font
+        self.image = self.font.render(msg, True, color)
 
     def change_msg(self, new_msg):
         self.msg = new_msg
@@ -22,9 +22,9 @@ class Text:
 
 
 class MessageBox(Text):
-    def __init__(self, msg, loc, size=20,
+    def __init__(self, msg, loc, font,
  bkg_color=(0, 0, 0), text_color=(255, 255, 255)):
-        super().__init__(msg, loc, size, text_color)
+        super().__init__(msg, loc, font, text_color)
         self.bkg_color = bkg_color
         self._build_rect()
 
@@ -45,9 +45,9 @@ class MessageBox(Text):
 
 
 class MessageButton(MessageBox):
-    def __init__(self, msg, loc, callback, size=20,
+    def __init__(self, msg, loc, callback, font,
      bkg_color=(0, 0, 0), text_color=(255, 255, 255)):
-        super().__init__(msg, loc, size, bkg_color, text_color)
+        super().__init__(msg, loc, font, bkg_color, text_color)
         self.callback = callback
 
     def check_mouse(self, mouse_coor):
