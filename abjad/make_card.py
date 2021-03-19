@@ -124,8 +124,8 @@ card_funcs = [func() for func in filter(lambda x: callable(x), CardBuilder.__dic
 i = 0
 
 for card_base in card_funcs:
-    if os.path.exists(f'../resources/cardd_{i}.jpg'):
-        print(f"Skipping car {i}")
+    if os.path.exists(f'../resources/card_{i}.jpg'):
+        print(f"Skipping card {i}")
         i += 1
         continue
     score = abjad.Score(name="Score")
