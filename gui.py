@@ -11,6 +11,7 @@ parser = argparse.ArgumentParser(description='Main script for piece')
 parser.add_argument('-name', help='username for debug and logging purposes')
 parser.add_argument('--debug', action='store_true',
                     help='run the gui without a client')
+parser.add_argument('--wind', action='store_true', help='run the gui in a windowed display')
 
 args = parser.parse_args()
 if args.name:
@@ -46,7 +47,7 @@ RED = (255, 58, 58)
 SCALING = 1280/2339
 
 if args.debug:
-    client = SimpleNamespace(hand=[4, 1, 2, 3], send_quit=quit)
+    client = SimpleNamespace(hand=[4, 1, 2, 3], send_quit=quit, send_start=lambda: print("debug start called"))
 else:
     if args.name:
         username = args.name
@@ -56,7 +57,10 @@ else:
 
 
 pygame.init()
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
+if args.wind:
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+else:
+    screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 pygame.display.set_caption("draw(0)")
 hand = Hand(200)
 FONT = pygame.font.Font('resources/JetBrainsMono-Medium.ttf', 18)
