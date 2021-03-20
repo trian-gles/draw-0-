@@ -46,7 +46,7 @@ RED = (255, 58, 58)
 SCALING = 1280/2339
 
 if args.debug:
-    client = SimpleNamespace(hand=[4, 1, 2, 3])
+    client = SimpleNamespace(hand=[4, 1, 2, 3], send_quit=quit)
 else:
     if args.name:
         username = args.name
