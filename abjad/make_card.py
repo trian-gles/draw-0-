@@ -19,10 +19,10 @@ preamble = r"""#(set-global-staff-size 19.5)
     \context {
         \Score
         \override Clef.stencil = ##f
-        \override SpacingSpanner.strict-spacing = ##t
         \override SystemStartBar.stencil = ##f
         \override TimeSignature.transparent = ##t
         proportionalNotationDuration = #(ly:make-moment 1 16)
+        \override SpacingSpanner.uniform-stretching = ##t
     }
 }"""
 
@@ -77,11 +77,12 @@ class CardBuilder:
         return notes
 
     def card_4():
-        # spacing needs to be fixed
+        # beaming still needs to be fixed
         div = (1, 8)
-        notes = [abjad.Rest('r8')] + [abjad.Note(n, div) for n in ("G4", "Ab4", "G4", "F#4")] + [abjad.Rest('r8')]
-        trips = make_triplets(notes)
-        return trips
+        trip = [abjad.Note(n, div) for n in ("G4", "Ab4", "G4")]
+        notes = [abjad.Tuplet((2, 3), trip)]
+        notes += [abjad.Note('F#4', (1, 8)), abjad.Rest('r8')]
+        return notes
 
     def card_5():
         notes = []
@@ -129,10 +130,10 @@ card_funcs = [func() for func in filter(lambda x: callable(x), CardBuilder.__dic
 i = 0
 
 for card_base in card_funcs:
-    if os.path.exists(f'../resources/card_{i}.jpg'):
-        print(f"Skipping card {i}")
-        i += 1
-        continue
+#    if os.path.exists(f'../resources/card_{i}.jpg'):
+#        print(f"Skipping card {i}")
+#        i += 1
+#        continue
     score = abjad.Score(name="Score")
     notes = card_base + [abjad.Rest('r2') for _ in range(3)] + [abjad.Note("C5", (1, 4)) for _ in range(4)]
     container = abjad.Container(notes)
@@ -160,7 +161,7 @@ for card_base in card_funcs:
         jpeg_im = Image.open(r"C:\Users\bkier\projects\draw(0)\abjad\output_dir\staff.jpg")
 
         width, height = jpeg_im.size
-        im_crop = jpeg_im.crop((10, 475, 270, 700))
+        im_crop = jpeg_im.crop((50, 475, 310, 700))
         im_crop.save(f'../resources/card_{i}.jpg', quality=95)
 
     delete_files = glob.glob(r"C:/Users/bkier/projects/draw(0)/abjad/output_dir/*")
