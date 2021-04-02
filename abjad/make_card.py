@@ -142,6 +142,15 @@ class CardBuilder:
         abjad.attach(grace, notes[0])
         return notes
 
+    def card_14():
+        notes = [abjad.Note(pitch, (1, 4)) for pitch in ("E4", "C5", "A4")]
+        notes = make_triplets(notes)
+        return notes
+
+    def card_15():
+        notes = [abjad.Note(pitch, (1, 4)) for pitch in ("C5", "E4", "A4")]
+        notes = make_triplets(notes)
+        return notes
 
 card_funcs = [func() for func in filter(lambda x: callable(x), CardBuilder.__dict__.values())]
 
