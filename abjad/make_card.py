@@ -152,6 +152,23 @@ class CardBuilder:
         notes = make_triplets(notes)
         return notes
 
+    def card_16():
+        notes = [abjad.Note(pitch, (1, 8)) for pitch in ("F5", "F5", "E4")]
+        notes = make_triplets(notes)
+        notes += [abjad.Rest((1, 8)), blank_space()]
+        return notes
+
+    def card_17():
+        notes = [abjad.Note(pitch, (1, 16)) for pitch in ("D5", "G5", "C5", "G5")]
+        notes += [abjad.Note("B4", (1, 8)), blank_space()]
+        return notes
+
+    def card_18():
+        notes = [abjad.Note(pitch, (1, 16)) for pitch in ("B4", "G5", "C5", "G5")]
+        notes += [abjad.Note("D5", (1, 8)), blank_space()]
+        return notes
+
+
 card_funcs = [func() for func in filter(lambda x: callable(x), CardBuilder.__dict__.values())]
 
 i = 0
