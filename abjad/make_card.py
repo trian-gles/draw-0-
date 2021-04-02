@@ -53,6 +53,12 @@ def slur_all(notes):
     return notes
 
 
+def attach_staccato(note):
+    stac = abjad.Articulation("staccato")
+    abjad.attach(stac, note)
+    return note
+
+
 class CardBuilder:
     def card_0():
         notes = [abjad.Rest('r2')]
@@ -124,16 +130,21 @@ class CardBuilder:
         abjad.attach(abjad.Glissando(), notes[0])
         return slur_all(notes)
 
+    def card_12():
+        notes = [attach_staccato(abjad.Note("C5", (1, 8))) for _ in range(2)]
+        notes.append(blank_space())
+        return notes
+
 
 card_funcs = [func() for func in filter(lambda x: callable(x), CardBuilder.__dict__.values())]
 
 i = 0
 
 for card_base in card_funcs:
-#    if os.path.exists(f'../resources/card_{i}.jpg'):
-#        print(f"Skipping card {i}")
-#        i += 1
-#        continue
+    if os.path.exists(f'../resources/card_{i}.jpg'):
+        print(f"Skipping card {i}")
+        i += 1
+        continue
     score = abjad.Score(name="Score")
     notes = card_base + [abjad.Rest('r2') for _ in range(3)] + [abjad.Note("C5", (1, 4)) for _ in range(4)]
     container = abjad.Container(notes)
