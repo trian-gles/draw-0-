@@ -135,6 +135,13 @@ class CardBuilder:
         notes.append(blank_space())
         return notes
 
+    def card_13():
+        notes = [abjad.Note("F5", (3, 16)) for _ in range(2)]
+        notes.append(blank_space())
+        grace = abjad.BeforeGraceContainer([abjad.Note("E4", (1, 8))], command=r"\acciaccatura")
+        abjad.attach(grace, notes[0])
+        return notes
+
 
 card_funcs = [func() for func in filter(lambda x: callable(x), CardBuilder.__dict__.values())]
 
