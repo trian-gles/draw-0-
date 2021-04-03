@@ -18,6 +18,10 @@ class Card(CardData):
             self.img = pygame.image.load(f"resources/test_card.jpg")
         self.rect = pygame.Rect(0, y, self.CARD_WIDTH, self.CARD_HEIGHT)
         self.select = False
+        self.msg = None
+        msg = card_msgs.get(id)
+        if msg:
+            self.msg = msg
 
 
 class Hand(CardData):
@@ -68,3 +72,8 @@ class Hand(CardData):
                 pygame.draw.rect(surf, (255, 0, 0), card.rect.inflate(10, 10))
             pygame.draw.rect(surf, (255, 255, 206), card.rect)
             surf.blit(card.img, (card.rect.left, card.rect.top + 40))
+
+
+card_msgs = {}
+for i in range(19):
+    card_msgs[i] = f"This is the message for card {i}"

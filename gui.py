@@ -63,7 +63,7 @@ else:
     screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
 pygame.display.set_caption("draw(0)")
 hand = Hand(200)
-FONT = pygame.font.Font('resources/JetBrainsMono-Medium.ttf', 18)
+FONT = pygame.font.Font('resources/JetBrainsMono-Medium.ttf', 16)
 
 
 def right():
@@ -144,6 +144,14 @@ def main():
 
         if timer.update():
             print("RESET")
+
+        if any(map(lambda c: c.msg, hand.cards)):
+            hand_msg = ""
+            for card in hand.cards:
+                if card.msg:
+                    hand_msg += card.msg + "/"
+            if hand_msg != card_info.msg:
+                card_info.change_msg(hand_msg)
 
         for arrow in arrows:
             arrow.check_mouse(mouse_pos)
